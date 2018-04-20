@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <!-- 自动扫描文件夹根据注解注册为bean,排除Controller注解的-->
+    <context:component-scan base-package="org.nix">
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+
+    <!-- 添加JDBC数据源,指定一个配置文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties" />
+
+    <!-- 这里用到了DBCP,自动管理数据库连接的释放和断开 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <!-- 初始化物理连接数 -->
+        <property name="initialSize" value="${jdbc.initialSize}" />
+        <!-- 连接池最大数量 -->
+        <property name="maxActive" value="${jdbc.maxActive}" />
+        <!-- 连接池最大空闲 -->
+        <property name="maxIdle" value="${jdbc.maxIdle}" />
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${jdbc.minIdle}" />
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${jdbc.maxWait}" />
+    </bean>
+
+    <!-- spring和MyBatis完美整合,不需要MyBatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- 加载MyBatis的一个小配置文件 -->
+        <property name="configLocation"  value="classpath:mybatis-config.xml"/>
+        <!-- 自动扫描mapping.xml文件 org.nix.dao.mapping-->
+        <property name="mapperLocations" value="classpath:org/nix/dao/mapping/*.xml" />
+    </bean>
+
+    <!-- 根据指定的Mapper接口生成Bean实例 -->
+    <!-- <bean id="productDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.amos.dao.ProductDao" />
+        <property name="sqlSessionFactoryBeanName" ref="sqlSessionFactory" />
+    </bean> -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="org.nix.dao"/>
+        <!-- 注意:下边这句是在有多个sqlSessionFactory时加的, -->
+        <!-- 同时,注意它的name和value,后边的不能是ref -->
+        <!-- <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/> -->
+    </bean>
+
+    <!-- 事务管理 -->
+    <tx:annotation-driven transaction-manager="txManager" />
+    <bean id="txManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+</beans>
