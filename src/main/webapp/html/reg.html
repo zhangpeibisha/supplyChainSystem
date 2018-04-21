@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>登录</title>
+    <title>注册</title>
     <script src="../js/jquery.min.js"></script>
     <link href="../css/loginStyle.css" rel="stylesheet" type="text/css" media="all" />
     <srcipt type="text/javascript" src="../js/loginCheck.js"></srcipt>
@@ -14,8 +14,8 @@
             <form class="login-form">
                 <input type="text" placeholder="用户名" id="user_name"/>
                 <input type="password" placeholder="密码" id="password"/>
-                <button id="login">登　录</button>
-                <p class="message">还没有账户? <a href="reg.html">立刻创建</a></p>
+                <button id="reg">注 册</button>
+                <p class="message">已经有了一个账户? <a href="login.html">立刻登录</a></p>
             </form>
         </div>
     </div>
@@ -23,7 +23,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#login").click(function () {
+        $("#reg").click(function () {
             var name = $("#user_name").val();
             var passWord = $("#password").val();
             if(name != null && passWord != null){
@@ -34,17 +34,17 @@
                     dataType: "json",
                     success: function () {
                         if(data.checkReturn == "true"){
-                            console.log("登录成功");
+                            console.log("注册成功");
                             window.location.href=""
                         }
                     },
                     error: function () {
-                        alert("登录失败");
+                        alert("注册失败");
                     }
                 });
             }
             else {
-                alert("用户名或密码错误")
+                alert("用户名或密码不能为空")
             }
         })
     })
