@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Contact</title>
+<title>supplierList</title>
 <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../resource/bootstrap-table/bootstrap-table.css">
 <!-- js -->
-<script src="js/jquery.min.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../resource/bootstrap-table/bootstrap-table.js"></script>
+<script src="../resource/bootstrap-table/bootstrap-table-zh-CN.js"></script>
 <!-- //js -->
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Bizz Wow Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
@@ -43,9 +45,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li><a href="index.html" class="act">HOME<span>START HERE</span></a></li>
 					<li><a href="index.html" class="act1">ABOUT US<span>KNOW US</span></a></li>
 					<li><a href="index.html" class="act2">FEATURES<span>WE PROVIDE</span></a></li>
-					<li><a href="blog.html" class="act3">BLOG<span>READ NEWS</span></a></li>
-					<li><a href="portfolio.html" class="act4">PORTFOLIO<span>OUR WORK</span></a></li>
-					<li class="cap"><a href="contact.html" class="act5">CONTACT US<span>GET IN TOUCH</span></a></li>
+                    <li><a href="personalInfo.html" class="act3">个人中心<span>详情</span></a></li>
+                    <li><a href="orderList.html" class="act4">订单列表<span>详情</span></a></li>
+					<li class="cap"><a href="supplierList.html" class="act2">原料商列表<span>详情</span></a></li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -62,13 +64,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //header -->
 <!-- contact -->
 	<div class="contact">
-		<h3>HOW TO FIND US</h3>
-		<div class="car">
+		<h3>供应商列表</h3>
+		<div class="supplier">
 			<span> </span>
 		</div>
-		<div class="map">
-			<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3672.1128867728276!2d72.558466!3d23.019626999999996!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e84fc8c21ce9f%3A0xff8f15bb6f07fe29!2sWorld+Business+House!5e0!3m2!1sen!2sin!4v1429268030186" frameborder="0" style="border:0"></iframe>
+
+		<div>
+
+
+
 		</div>
+
+
 		<div class="paragraph">
 			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
 			Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. 
@@ -99,31 +106,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="clearfix"> </div>
 		</div>
 	</div>
-	<div class="contact-form">
-		<h3>CONTCT FORM</h3>
-		<div class="mes-fig">
-			<span> </span>
-		</div>
-		<form>
-			<input type="text" placeholder="Name" required=" ">
-			<input type="text" placeholder="Email" required=" ">
-			<input type="text" placeholder="Subject" required=" ">
-			<div class="clearfix"> </div>
-			<textarea placeholder="Message" required></textarea>
-			<input type="submit" value="SEND">
-		</form>
-	</div>
+
 <!-- //contact -->
 <!-- footer -->
 	<div class="footer">
 		<div class="footer-left">
 			<ul>
 				<li><a href="index.html"><img src="../images/logo1.png" alt=" " /></a><span> |</span></li>
-				<li><p>The awesome agency. <span>0800 (123) 4567 // Los Angeles 746 PO</span></p></li>
+				<li><p>提供优质的供应链服务 <span>0800 (123) 4567 </span></p></li>
 			</ul>
 		</div>
 		<div class="footer-right">
-			<p>Copyright &copy; 2015.Company name All rights reserved.<a target="_blank" href="">nix</a></p>
+			<p>Copyright &copy; 2018.NiXteam.</p>
 		</div>
 		<div class="clearfix"> </div>
 	</div>
@@ -132,19 +126,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 <!-- here stars scrolling icon -->
 	<script type="text/javascript">
-									$(document).ready(function() {
-										/*
-										var defaults = {
-								  			containerID: 'toTop', // fading element id
-											containerHoverID: 'toTopHover', // fading element hover id
-											scrollSpeed: 1200,
-											easingType: 'linear' 
-								 		};
-										*/
-										
-										$().UItoTop({ easingType: 'easeOutQuart' });
-										
-									});
+            $(document).ready(function() {
+                /*
+                var defaults = {
+                    containerID: 'toTop', // fading element id
+                    containerHoverID: 'toTopHover', // fading element hover id
+                    scrollSpeed: 1200,
+                    easingType: 'linear'
+                };
+                */
+
+                $().UItoTop({ easingType: 'easeOutQuart' });
+
+            });
 	</script>
 <!-- //here ends scrolling icon -->
 </body>
