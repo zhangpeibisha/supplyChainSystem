@@ -3,6 +3,7 @@ package org.nix.model.base;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Date;
 
 /**
  * Created by 11723 on 2017/5/4.
@@ -10,6 +11,17 @@ import java.lang.reflect.Method;
 public class BaseModel<M extends BaseModel<M>> {
 
     protected Integer id;
+
+    //创建时间
+    protected Date createTime = new Date();
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public Integer getId() {
         return id;
