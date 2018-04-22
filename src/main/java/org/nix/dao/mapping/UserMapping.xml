@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.nix.dao.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="org.nix.model.UserModel">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="nickName" property="nickName" jdbcType="VARCHAR"/>
+        <result column="passWord" property="passWord" jdbcType="VARCHAR"/>
+        <result column="userName" property="userName" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <association property="address" column="address" javaType="org.nix.model.AddressModel" select="org.nix.dao.mapper.AddressMapper.selectRoleLazy"/>
+    </resultMap>
+    <insert id="insert" parameterType="org.nix.model.UserModel">
+        insert into `user`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                `id`,
+            </if>
+            <if test="nickName != null">
+                `nickName`,
+            </if>
+            <if test="passWord != null">
+                `passWord`,
+            </if>
+            <if test="userName != null">
+                `userName`,
+            </if>
+            <if test="phone != null">
+                `phone`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=java.lang.Integer},
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="passWord != null">
+                #{passWord,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete  from `user` where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <update id="update" parameterType="org.nix.model.UserModel">
+        update `user`
+        set
+        <trim prefix="" suffix="" suffixOverrides=",">
+            <if test="nickName != null">
+                `nickName` = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="passWord != null">
+                `passWord` = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                `userName` = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                `phone` = #{phone,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="select" parameterType="int" resultMap="BaseResultMap">
+        select * from `user` where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="list" resultMap="BaseResultMap">
+        select * from `user`
+        <if test="conditions != null">
+            where ${conditions}
+        </if>
+        <if test="order != null and sort != null">
+            order by ${order} ${sort}
+        </if>
+        <if test="limit != -1 and limit != -1">
+            limit #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="login" parameterType="org.nix.model.UserModel" resultMap="BaseResultMap">
+        SELECT * FROM `user` as u WHERE u.`nickName` = #{nickName,jdbcType=VARCHAR} AND u.`passWord` = #{passWord,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

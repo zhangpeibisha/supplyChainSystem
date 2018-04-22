@@ -11,10 +11,7 @@
 		http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
     <!-- 自动扫描文件夹根据注解注册为bean,排除Controller注解的-->
-    <context:component-scan base-package="org.nix">
-        <context:exclude-filter type="annotation"
-                                expression="org.springframework.stereotype.Controller" />
-    </context:component-scan>
+    <context:component-scan base-package="org.nix"/>
 
     <!-- 添加JDBC数据源,指定一个配置文件 -->
     <context:property-placeholder location="classpath:jdbc.properties" />
@@ -42,7 +39,7 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <!-- 加载MyBatis的一个小配置文件 -->
-        <property name="configLocation"  value="classpath:mybatis-config.xml"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
         <!-- 自动扫描mapping.xml文件 org.nix.dao.mapping-->
         <property name="mapperLocations" value="classpath:org/nix/dao/mapping/*.xml" />
     </bean>
@@ -53,9 +50,10 @@
         <property name="sqlSessionFactoryBeanName" ref="sqlSessionFactory" />
     </bean> -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="org.nix.dao"/>
+        <property name="basePackage" value="org.nix.dao.mapper"/>
         <!-- 注意:下边这句是在有多个sqlSessionFactory时加的, -->
         <!-- 同时,注意它的name和value,后边的不能是ref -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
         <!-- <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/> -->
     </bean>
 
