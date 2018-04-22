@@ -2,9 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>注册</title>
+    <script src="../resource/js/jquery.min.js"></script>
+    <link href="../css/loginStyle.css" rel="stylesheet" type="text/css" media="all" />
+    <srcipt type="text/javascript" src="../js/loginCheck.js"></srcipt>
 </head>
 <body>
+<div class="htmleaf-container">
+    <div id="wrapper" class="login-page">
+        <div id="login_form" class="form">
+            <form class="login-form">
+                <input type="text" placeholder="用户名" id="user_name"/>
+                <input type="password" placeholder="密码" id="password"/>
+                <input type="password" placeholder="再次输入密码" id="againPass"/>
+                <button id="reg">注 册</button>
+                <p class="message">已经有了一个账户? <a href="login.html">立刻登录</a></p>
+            </form>
+        </div>
+    </div>
+</div>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#reg").click(function () {
+            var name = $("#user_name").val();
+            var passWord = $("#password").val();
+            var againPass = $("#againPass").val();
+            if(passWord == againPass){
+                if(name != null && passWord != null){
+                    $.ajax({
+                        type: "post",
+                        url: "",
+                        data: {"userName": name,"passWord": passWord},
+                        dataType: "json",
+                        success: function () {
+                            if(data.checkReturn == "true"){
+                                console.log("注册成功");
+                                window.location.href=""
+                            }
+                        },
+                        error: function () {
+                            alert("注册失败");
+                        }
+                    });
+                }
+                else {
+                    alert("用户名或密码不能为空")
+                }
+            }
+            else{
+                alert("两次密码不一样");
+            }
+        })
+    })
+</script>
 </body>
 </html>

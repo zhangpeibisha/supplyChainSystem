@@ -1226,8 +1226,8 @@ ul.social-slide li i.mac{
 	height:20px;
 	content:'';
 	}
-.supplier span{
-	background:url(../images/supplier.png) no-repeat 36em 0em;
+.car span{
+	background:url(../images/car.png) no-repeat 36em 0em;
 	display:block;
 	height:50px;
 	}
@@ -1235,6 +1235,10 @@ ul.social-slide li i.mac{
 	padding:1em;
 	margin:2em 0;
 	border:1px solid #000;
+	}
+.map iframe{
+	width:100%;
+	height:500px;
 	}
 .paragraph{
 	margin:0 0 2em;
