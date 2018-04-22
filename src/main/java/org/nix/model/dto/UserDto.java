@@ -5,6 +5,7 @@ package org.nix.model.dto;
  * @date 2018/04/22 20:38
  */
 public class UserDto {
+
     private String nickName;
     private String passWord;
     private String userName;
