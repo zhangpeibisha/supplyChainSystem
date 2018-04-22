@@ -2,7 +2,7 @@
 # .gitignore for maven 
 target/
 *.releaseBackup
-
+*jdbc.properties
 # web application files
 #/web-app/WEB-INF
 
