@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
-    <script src="../js/jquery.min.js"></script>
+    <script src="../resource/js/jquery.min.js"></script>
     <link href="../css/loginStyle.css" rel="stylesheet" type="text/css" media="all" />
     <srcipt type="text/javascript" src="../js/loginCheck.js"></srcipt>
 </head>
@@ -15,7 +15,7 @@
                 <input type="text" placeholder="用户名" id="user_name"/>
                 <input type="password" placeholder="密码" id="password"/>
                 <button id="login">登　录</button>
-                <p class="message">还没有账户? <a href="reg.html">立刻创建</a></p>
+                <p class="message">还没有账户? <a href="register.html">立刻创建</a></p>
             </form>
         </div>
     </div>
@@ -40,6 +40,7 @@
                     },
                     error: function () {
                         alert("登录失败");
+                        window.location.href="index.html";
                     }
                 });
             }
