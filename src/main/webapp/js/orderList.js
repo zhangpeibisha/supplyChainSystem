@@ -28,7 +28,7 @@ var TableInit = function () {
             pageNumber:1,                       //初始化加载第一页，默认第一页
             pageSize: 10,                       //每页的记录行数（*）
             pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
-            search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
             strictSearch: true,
             showColumns: true,                  //是否显示所有的列
             showRefresh: true,                  //是否显示刷新按钮
@@ -45,14 +45,11 @@ var TableInit = function () {
                 field: 'orderId',
                 title: '订单编号'
             }, {
-                field: 'userId',
-                title: '用户编号'
-            }, {
                 field: 'userName',
                 title: '用户名'
-            },{
+            }, {
                 field: 'goodsName',
-                title: '货物名'
+                title: '货物名称'
             }, {
                 field: 'unitPrice',
                 title: '货物单价'
@@ -60,17 +57,17 @@ var TableInit = function () {
                 field: 'needAmount',
                 title: '货物数量'
             }, {
-                field: 'percentOfPass',
-                title: '合格率'
-            }, {
                 field: 'timeLimit',
                 title: '到货天数'
             }, {
-                field: 'Address',
-                title: '地址'
-            }, {
-                field: 'QualificationRate',
-                title: '原料合格率'
+                title: '操作',
+                field: 'id',
+                align: 'center',
+                formatter:function(value,row,index){
+                    var e = '<button href="#" class="btn btn-default" mce_href="#" onclick="edit(\''+ row.id + '\')">编辑</button> ';
+                    var d = '<button href="#" class="btn btn-default" mce_href="#" onclick="del(\''+ row.id +'\')">删除</button> ';
+                    return e+d;
+                }
             }  ]
         });
     };
@@ -80,8 +77,8 @@ var TableInit = function () {
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             limit: params.limit,   //页面大小
             offset: params.offset,  //页码
-            departmentname: $("#txt_search_departmentname").val(),
-            statu: $("#txt_search_statu").val()
+            orderId: $("#orderId").val(),
+            goodsName: $("#goodsName").val()
         };
         return temp;
     };
