@@ -57,6 +57,15 @@ var TableInit = function () {
             }, {
                 field: 'QualificationRate',
                 title: '原料合格率'
+            }, {
+                title: '操作',
+                field: 'id',
+                align: 'center',
+                formatter: function(value, row, index) {
+                    var e = '<button herf="#" class="btn btn-default" mce-href="#" onclick="edit(\''+row.id+'\')">编辑</button>'
+                    var d = '<button href="#" class="btn btn-default" mce_href="#" onclick="del(\''+ row.id +'\')">删除</button> ';
+                    return e+d;
+                }
             }  ]
         });
     };
@@ -66,6 +75,7 @@ var TableInit = function () {
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             limit: params.limit,   //页面大小
             offset: params.offset,  //页码
+            Name: $("#Name").val(),  //名称
             departmentname: $("#txt_search_departmentname").val(),
             statu: $("#txt_search_statu").val()
         };
