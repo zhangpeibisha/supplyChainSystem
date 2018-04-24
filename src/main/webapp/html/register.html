@@ -23,6 +23,8 @@
 </div>
 
 <script type="text/javascript">
+
+    var registerUrl = "/user/registered.do";
     $(document).ready(function () {
         $("#reg").click(function () {
             var name = $("#user_name").val();
@@ -32,17 +34,23 @@
                 if(name != null && passWord != null){
                     $.ajax({
                         type: "post",
-                        url: "",
-                        data: {"userName": name,"passWord": passWord},
+                        url: registerUrl,
+                        data: {
+                            "nickName": name,
+                            "passWord": passWord
+                        },
                         dataType: "json",
                         success: function () {
-                            if(data.checkReturn == "true"){
-                                console.log("注册成功");
-                                window.location.href=""
+                            if(data.code == "1") {
+                                alert("注册成功");
+                                window.location.href = "login.html"
+                            }
+                            else{
+                                alert("注册失败");
                             }
                         },
                         error: function () {
-                            alert("注册失败");
+                            alert("连接失败");
                         }
                     });
                 }
