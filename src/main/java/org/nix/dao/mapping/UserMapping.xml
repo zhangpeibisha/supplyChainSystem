@@ -7,7 +7,6 @@
         <result column="passWord" property="passWord" jdbcType="VARCHAR"/>
         <result column="userName" property="userName" jdbcType="VARCHAR"/>
         <result column="phone" property="phone" jdbcType="VARCHAR"/>
-        <association property="address" column="address" javaType="org.nix.model.AddressModel" select="org.nix.dao.mapper.AddressMapper.selectRoleLazy"/>
     </resultMap>
     <insert id="insert" parameterType="org.nix.model.UserModel">
         insert into `t_user`
