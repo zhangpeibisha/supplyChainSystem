@@ -18,9 +18,10 @@
                 <input type="text" placeholder="地址" id="address"/>
                 <input type="password" placeholder="密码" id="password"/>
                 <input type="password" placeholder="再次输入密码" id="againPass"/>
-                <button id="reg">注 册</button>
-                <p class="message">已经有了一个账户? <a href="login.html">立刻登录</a></p>
+
             </form>
+            <button id="reg">注 册</button>
+            <p class="message">已经有了一个账户? <a href="login.html">立刻登录</a></p>
         </div>
     </div>
 </div>
@@ -36,7 +37,6 @@
             var relname = $("#real_name").val();
             var phoneNum = $("#phone_number").val();
             var address = $("#address").val();
-
             if(passWord == againPass){
                 if(name != null && passWord != null){
                     $.ajax({
@@ -50,7 +50,8 @@
                             "phone": phoneNum
                         },
                         dataType: "json",
-                        success: function () {
+                        success: function (data) {
+                            console.log(data);
                             if(data.code == "1") {
                                 alert("注册成功");
                                 window.location.href = "login.html"
