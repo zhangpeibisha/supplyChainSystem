@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.nix.dao.mapper.MaterialMerchantsMapper" >
+
+    <!--根据条件查找数据条数-->
+    <select id="getCounts" resultType="long" >
+        SELECT
+        count(*)
+        FROM
+        t_materialMerchants
+        WHERE
+        id IS NOT NULL
+        <if test="goodsName != null and goodsName.length() > 0">
+            AND  goodsName like CONCAT('%', #{goodsName}, '%')
+        </if>
+
+        <if test="inventory != null">
+            AND  inventory like CONCAT('%', #{inventory}, '%')
+        </if>
+        <if test="unitPrice != null">
+            AND  unitPrice like CONCAT('%', #{unitPrice}, '%')
+        </if>
+    </select>
+
+
+
+    <!--新增一个原料商-->
+    <insert id="insert" parameterType="org.nix.model.UserModel">
+        insert into `t_materialMerchants`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                `id`,
+            </if>
+            <if test="nickName != null">
+                `nickName`,
+            </if>
+            <if test="address != null">
+                `address`,
+            </if>
+            <if test="inventory != null">
+                `inventory`,
+            </if>
+            <if test="percentOfPass != null">
+                `percentOfPass`,
+            </if>
+            <if test="goodsName != null">
+                `goodsName`,
+            </if>
+            <if test="unitPrice != null">
+                `unitPrice`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER}
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR}
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR}
+            </if>
+            <if test="inventory != null">
+                #{inventory,jdbcType=INT}
+            </if>
+            <if test="percentOfPass != null">
+                #{percentOfPass,jdbcType=DECIMAL}
+            </if>
+            <if test="goodsName != null">
+                #{goodsName,jdbcType=VARCHAR}
+            </if>
+            <if test="unitPrice != null">
+                #{unitPrice,jdbcType=DECIMAL}
+            </if>
+        </trim>
+    </insert>
+
+    <!--根据id删除一个原料商-->
+    <delete id="delete">
+        delete  from `t_materialMerchants` where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <!--更新原料商的信息-->
+    <update id="update" parameterType="org.nix.model.MaterialMerchantsModel">
+        update `t_materialMerchants`
+        set
+        <trim prefix="" suffix="" suffixOverrides=",">
+            <if test="nickName != null">
+                `nickName` = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="passWord != null">
+                `passWord` = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                `userName` = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                `phone` = #{phone,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!--根据id获取原料商的具体信息-->
+    <select id="select" resultMap="BaseResultMap">
+        select * from `t_materialMerchants` where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <!--根据条件查找数据-->
+    <select id="list" resultMap="BaseResultMap">
+        select * from `t_materialMerchants`
+        <if test="conditions != null">
+            where ${conditions}
+        </if>
+        <if test="order != null and sort != null">
+            order by ${order} ${sort}
+        </if>
+        <if test="limit != -1 and limit != -1">
+            limit #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+
+</mapper>
