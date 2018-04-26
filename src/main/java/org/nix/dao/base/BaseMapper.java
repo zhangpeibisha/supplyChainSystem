@@ -2,7 +2,6 @@ package org.nix.dao.base;
 import org.apache.ibatis.annotations.Param;
 import org.nix.model.base.BaseModel;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 /**

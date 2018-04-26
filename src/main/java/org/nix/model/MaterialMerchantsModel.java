@@ -1,14 +1,13 @@
 package org.nix.model;
 
 import org.nix.model.base.BaseModel;
+import org.nix.model.city.City;
 
 public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
 
-    private String materialMerchantsId;
-
     private String nickName;// 原料商名
 
-    private String address;// 原料商地址
+    private City address;// 原料商地址
 
     private long inventory;// 原料库存
 
@@ -18,15 +17,11 @@ public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
 
     private double unitPrice;// 原料单价
 
-    public String getMaterialMerchantsId(){
-        return this.materialMerchantsId;
-    }
-
     public String getNickName(){
         return this.nickName;
     }
 
-    public String getAddress(){
+    public City getAddress(){
         return this.address;
     }
 
@@ -46,15 +41,11 @@ public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
         return this.unitPrice;
     }
 
-    public void setMaterialMerchantsId(String materialMerchantsId){
-        this.materialMerchantsId = materialMerchantsId;
-    }
-
     public void setNickName(String nickName){
         this.nickName = nickName;
     }
 
-    public  void setAddress(String address){
+    public  void setAddress(City address){
         this.address = address;
     }
 
