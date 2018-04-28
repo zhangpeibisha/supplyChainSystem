@@ -29,7 +29,9 @@ public class BaseService <M extends BaseModel<M>>{
     private Object invokeMapperMethod(String methodName,Class[] clazzs,Object ... objects) throws Exception {
         LogKit.info(this.getClass(),"执行" + methodName + "方法");
         try {
-            Object o = SpringContextHolder.getBean(this.getClass().getSimpleName().toLowerCase().replaceFirst("service","Mapper"));
+            String mapperName = this.getClass().getSimpleName().replaceFirst("Service","Mapper");
+            mapperName = mapperName.substring(0,1).toLowerCase() + mapperName.substring(1);
+            Object o = SpringContextHolder.getBean(mapperName);
             Class<?> clazz = o.getClass();
             Method method = clazz.getMethod(methodName, clazzs);
             return method.invoke(o,objects);

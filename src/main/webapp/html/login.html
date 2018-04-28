@@ -14,14 +14,16 @@
             <form class="login-form">
                 <input type="text" placeholder="用户名" id="user_name"/>
                 <input type="password" placeholder="密码" id="password"/>
-                <button id="login">登　录</button>
-                <p class="message">还没有账户? <a href="register.html">立刻创建</a></p>
             </form>
+            <button id="login">登　录</button>
+            <p class="message">还没有账户? <a href="register.html" style="text-decoration: none">立刻创建</a></p>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
+
+    var loginUrl = "/user/login.do";
     $(document).ready(function () {
         $("#login").click(function () {
             var name = $("#user_name").val();
@@ -29,23 +31,29 @@
             if(name != null && passWord != null){
                 $.ajax({
                     type: "post",
-                    url: "",
-                    data: {"userName": name,"passWord": passWord},
+                    url: loginUrl,
+                    data: {
+                        "nickName": name,
+                        "passWord": passWord
+                    },
                     dataType: "json",
-                    success: function () {
-                        if(data.checkReturn == "true"){
-                            console.log("登录成功");
-                            window.location.href=""
+                    success: function (data) {
+                        console.log(data);
+                        if(data.code == "1"){
+                            alert("登录成功");
+                            window.location.href="index.html";
+                        }
+                        else{
+                            alert("登录失败");
                         }
                     },
                     error: function () {
-                        alert("登录失败");
-                        window.location.href="index.html";
+                        alert("连接失败");
                     }
                 });
             }
             else {
-                alert("用户名或密码错误")
+                alert("请按正确格式填写账号和密码！");
             }
         })
     })

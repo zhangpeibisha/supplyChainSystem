@@ -10,7 +10,6 @@ public class UserModel extends BaseModel<UserModel> {
     private String nickName;
     private String passWord;
     private String userName;
-    private AddressModel address;
     private String phone;
 
     public String getNickName() {
@@ -35,14 +34,6 @@ public class UserModel extends BaseModel<UserModel> {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public AddressModel getAddress() {
-        return address;
-    }
-
-    public void setAddress(AddressModel address) {
-        this.address = address;
     }
 
     public String getPhone() {
