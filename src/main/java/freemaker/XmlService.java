@@ -22,6 +22,7 @@ public class XmlService {
     public static final String packageName = "org.nix.model";
     //生成mapping的路径
     public static final String mappingPath = ".\\src\\main\\java\\org\\nix\\dao\\mapping\\";
+    public static final String modelSuffix = "Model";
 
 
     /**
@@ -94,6 +95,6 @@ public class XmlService {
      * 判断fileName时候是Model实体类
      * */
     private boolean isModelFile(String fileName){
-        return fileName.matches(".*Model.java");
+        return fileName.matches(".*" + modelSuffix + ".java");
     }
 }

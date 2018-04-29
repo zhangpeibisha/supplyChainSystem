@@ -71,9 +71,13 @@ public class FreemakerRoot {
         LogKit.info(this.getClass(),"文件校验通过 开始代码生成");
         Template template = CONFIGURATION.getTemplate(isHavaFile(getMappingXmlPath()) ? ftl_no_header : ftl_have_header);
         Map<String, Object> paramMap = generateInsertContent();
-        Writer writer = new OutputStreamWriter(new FileOutputStream("./mapping.xml"),"UTF-8");
+        File file = new File("./mapping.xml");
+        file.createNewFile();
+        Writer writer = new OutputStreamWriter(new FileOutputStream(file),"UTF-8");
         template.process(paramMap, writer);
         changProjectXml();
+        file.delete();
+
     }
     /**
      * 获取本次操作的pojo实体的字段映射关系
@@ -102,7 +106,7 @@ public class FreemakerRoot {
     private FreeParam getFreeParam(Class<?> type, boolean isRoot) {
         FreeParam freeParam = new FreeParam();
         Model model = new Model();
-        model.setModel_name(type.getSimpleName().replace("model",""));
+        model.setModel_name(type.getSimpleName().replace(XmlService.modelSuffix,""));
         List<Param> paramList = new ArrayList<>();
         Param param1 = new Param("id","java.lang.Integer");
         paramList.add(param1);
@@ -203,6 +207,6 @@ public class FreemakerRoot {
     }
 
     private String getMappingXmlPath(){
-        return XmlService.mappingPath +baseModelClazz.getSimpleName().replaceFirst("Model","Mapping.xml");
+        return XmlService.mappingPath +baseModelClazz.getSimpleName().replaceFirst(XmlService.modelSuffix,"Mapping.xml");
     }
 }
