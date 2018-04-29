@@ -22,7 +22,7 @@ public class MaterialMerchantsService extends BaseService<MaterialMerchantsModel
      *
      */
     public long getCounts(MaterialMerchantsModel materialMerchantsModel){
-        return materialMerchantsMapper.getCounts(materialMerchantsModel.getGoodsName(),
+        return materialMerchantsMapper.counts(materialMerchantsModel.getGoodsName(),
                 materialMerchantsModel.getInventory(),
                 materialMerchantsModel.getUnitPrice());
     }

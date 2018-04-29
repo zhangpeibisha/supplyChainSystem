@@ -19,13 +19,13 @@
         </association>
     </resultMap>
     <!--根据条件查找数据条数-->
-    <select id="getCounts" resultType="long" >
+    <select id="counts" resultType="long" >
         SELECT
         count(*)
         FROM
         t_materialMerchants
         WHERE
-        id IS NOT NULL
+        1 = 1
         <if test="goodsName != null and goodsName.length() > 0">
             AND  goodsName like CONCAT('%', #{goodsName}, '%')
         </if>
