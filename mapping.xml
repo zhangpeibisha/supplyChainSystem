@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nix.cinema.dao.MaterialMerchantsModelMapper">
+    <resultMap id="BaseResultMap" type="org.nix.model.MaterialMerchantsModel">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="materialMerchantsId" property="materialMerchantsId" jdbcType="VARCHAR"/>
+        <result column="nickName" property="nickName" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="inventory" property="inventory" jdbcType="BIGINT"/>
+        <result column="percentOfPass" property="percentOfPass" jdbcType="DOUBLE"/>
+        <result column="goodsName" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="unitPrice" property="unitPrice" jdbcType="DOUBLE"/>
+    </resultMap>
+    <insert id="insert" parameterType="org.nix.model.MaterialMerchantsModel">
+        insert into `materialmerchantsmodel`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                `id`,
+            </if>
+            <if test="materialMerchantsId != null">
+                `materialMerchantsId`,
+            </if>
+            <if test="nickName != null">
+                `nickName`,
+            </if>
+            <if test="address != null">
+                `address`,
+            </if>
+            <if test="inventory != null">
+                `inventory`,
+            </if>
+            <if test="percentOfPass != null">
+                `percentOfPass`,
+            </if>
+            <if test="goodsName != null">
+                `goodsName`,
+            </if>
+            <if test="unitPrice != null">
+                `unitPrice`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+             <if test="id != null">
+                #{id,jdbcType=java.lang.Integer},
+             </if>
+             <if test="materialMerchantsId != null">
+                #{materialMerchantsId,jdbcType=VARCHAR},
+             </if>
+             <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+             </if>
+             <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+             </if>
+             <if test="inventory != null">
+                #{inventory,jdbcType=BIGINT},
+             </if>
+             <if test="percentOfPass != null">
+                #{percentOfPass,jdbcType=DOUBLE},
+             </if>
+             <if test="goodsName != null">
+                #{goodsName,jdbcType=VARCHAR},
+             </if>
+             <if test="unitPrice != null">
+                #{unitPrice,jdbcType=DOUBLE},
+             </if>
+        </trim>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete  from `materialmerchantsmodel` where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <update id="update" parameterType="org.nix.model.MaterialMerchantsModel">
+        updata `materialmerchantsmodel`
+        set
+        <trim prefix="" suffix="" suffixOverrides=",">
+            <if test="true">
+                `id` = #{id,jdbcType=java.lang.Integer},
+            </if>
+            <if test="true">
+                `materialMerchantsId` = #{materialMerchantsId,jdbcType=VARCHAR},
+            </if>
+            <if test="true">
+                `nickName` = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="true">
+                `address` = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="true">
+                `inventory` = #{inventory,jdbcType=BIGINT},
+            </if>
+            <if test="true">
+                `percentOfPass` = #{percentOfPass,jdbcType=DOUBLE},
+            </if>
+            <if test="true">
+                `goodsName` = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="true">
+                `unitPrice` = #{unitPrice,jdbcType=DOUBLE},
+            </if>
+        </trim>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="select" parameterType="int" resultMap="BaseResultMap">
+        select * from `materialmerchantsmodel` where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="list" resultMap="BaseResultMap">
+        select * from `materialmerchantsmodel`
+        <if test="conditions != null">
+            where @{conditions}
+        </if>
+        <if test="order != null and sort != null">
+            order by @{order} @{sort}
+        </if>
+        <if test="limit != -1 and limit != -1">
+            limit #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>
