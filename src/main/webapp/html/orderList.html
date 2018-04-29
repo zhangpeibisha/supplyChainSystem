@@ -39,6 +39,7 @@
 </head>
 
 <body>
+
 <div class="psd">
 	<div class="container">
 		<!-- header -->
@@ -81,11 +82,11 @@
 							<div class="col-sm-3">
 								<input type="text" class="form-control" id="orderId">
 							</div>
-							<label class="control-label col-sm-1" for="goodsName">货物名称</label>
+							<label class="control-label col-sm-1" for="findGoodsName">货物名称</label>
 							<div class="col-sm-3">
-								<input type="text" class="form-control" id="goodsName">
+								<input type="text" class="form-control" id="findGoodsName">
 							</div>
-							<div class="col-sm-4" style="text-align:left;">
+							<div class="control-label col-sm-4" style="text-align:left;">
 								<a style="margin-left:50px;" id="btn_query" class=" find_button" >查询</a>
 							</div>
 
@@ -143,26 +144,42 @@
 </script>
 <!-- //here ends scrolling icon -->
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal " id="orderDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">操作</h4>
+				<h4 class="modal-title" id="myModalLabel">修改</h4>
 			</div>
 			<div class="modal-body">
 
 				<div class="form-group">
-					<label for="txt_departmentname">部门名称</label>
-					<input type="text" name="txt_departmentname" data-bind="value:Name" class="form-control" id="txt_departmentname" placeholder="部门名称">
+					<label for="goodsName">货物名</label>
+					<input type="text" name="goodsName" data-bind="value:goodsName" class="form-control" id="goodsName" placeholder="货物名">
 				</div>
 				<div class="form-group">
-					<label for="txt_departmentlevel">部门级别</label>
-					<input type="text" name="txt_departmentlevel" data-bind="value:Level" class="form-control" id="txt_departmentlevel" placeholder="部门级别">
+					<label for="unitPrice">货物单价</label>
+					<input type="text" name="unitPrice" data-bind="value:unitPrice" class="form-control" id="unitPrice" placeholder="货物单价">
 				</div>
 				<div class="form-group">
-					<label for="txt_des">描述</label>
-					<input type="text" name="txt_des" data-bind="value:Des" class="form-control" id="txt_des" placeholder="描述">
+					<label for="needAmount">货物数量</label>
+					<input type="text" name="needAmount" data-bind="value:needAmount" class="form-control" id="needAmount" placeholder="货物数量">
+				</div>
+				<div class="form-group">
+					<label for="percentOfPass">合格率</label>
+					<input type="text" name="percentOfPass" data-bind="value:percentOfPass" class="form-control" id="percentOfPass" placeholder="合格率">
+				</div>
+				<div class="form-group">
+					<label for="timeLimit">到货天数</label>
+					<input type="text" name="timeLimit" data-bind="value:timeLimit" class="form-control" id="timeLimit" placeholder="到货天数">
+				</div>
+				<div class="form-group">
+					<label for="Address">地址</label>
+					<input type="text" name="Address" data-bind="value:Address" class="form-control" id="Address" placeholder="地址">
+				</div>
+				<div class="form-group">
+					<label for="QualificationRate">原料合格率</label>
+					<input type="text" name="QualificationRate" data-bind="value:Des" class="form-control" id="QualificationRate" placeholder="原料合格率">
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -172,7 +189,6 @@
 		</div>
 	</div>
 </div>
-
 
 
 </body>
