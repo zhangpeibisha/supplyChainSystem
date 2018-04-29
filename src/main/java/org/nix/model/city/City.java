@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Create by zhangpe0312@qq.com on 2018/4/22.
  */
-public class City extends BaseModel<City>{
+public class City extends BaseModel<City> {
 
     // 城市名字
     private String cityName;

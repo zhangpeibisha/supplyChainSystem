@@ -23,7 +23,6 @@
     </select>
 
 
-
     <!--新增一个原料商-->
     <insert id="insert" parameterType="org.nix.model.UserModel">
         insert into `t_materialMerchants`
