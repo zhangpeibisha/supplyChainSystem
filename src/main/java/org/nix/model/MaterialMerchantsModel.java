@@ -1,6 +1,7 @@
 package org.nix.model;
 
 import org.nix.model.base.BaseModel;
+import org.nix.model.city.City;
 
 public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
 
@@ -8,7 +9,7 @@ public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
 
     private String nickName;// 原料商名
 
-    private String address;// 原料商地址
+    private City address;// 原料商地址
 
     private long inventory;// 原料库存
 
@@ -26,7 +27,7 @@ public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
         return this.nickName;
     }
 
-    public String getAddress(){
+    public City getAddress(){
         return this.address;
     }
 
@@ -54,7 +55,7 @@ public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
         this.nickName = nickName;
     }
 
-    public  void setAddress(String address){
+    public  void setAddress(City address){
         this.address = address;
     }
 
