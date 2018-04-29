@@ -29,17 +29,18 @@ public class MaterialMerchantsController {
                                                @ModelAttribute LimitShowModel limitShowModel) {
 
         Map<String,Object> resultMap = new HashMap<>();
-        String conditionSql =  " materialMerchantsId IS NOT NULL\n" +
-                "        <if test=\"goodsName != null and goodsName.length() > 0\">\n" +
-                "            AND  goodsName like CONCAT('%', #{"+materialMerchantsModel.getGoodsName()+"}, '%')\n" +
-                "        </if>\n" +
-                "\n" +
-                "        <if test=\"inventory != null\">\n" +
-                "            AND  inventory like CONCAT('%', #{"+materialMerchantsModel.getInventory()+"}, '%')\n" +
-                "        </if>\n" +
-                "        <if test=\"unitPrice != null\">\n" +
-                "            AND  unitPrice like CONCAT('%', #{"+materialMerchantsModel.getUnitPrice()+"}, '%')\n" +
-                "        </if>\n";
+
+        // Sql条件查询语句
+        String conditionSql =  " id IS NOT NULL\n";
+        if (materialMerchantsModel.getGoodsName() != null){
+            conditionSql += "AND  goodsName like CONCAT('%', #{"+materialMerchantsModel.getGoodsName()+"}, '%')\n";
+        }
+        if (materialMerchantsModel.getInventory() != 0){
+            conditionSql += "AND  inventory like CONCAT('%', #{"+materialMerchantsModel.getInventory()+"}, '%')\n";
+        }
+        if(materialMerchantsModel.getUnitPrice() != 0) {
+            conditionSql += "AND  unitPrice like CONCAT('%', #{"+materialMerchantsModel.getUnitPrice()+"}, '%')\n";
+        }
         try {
             Integer page = limitShowModel.getCurPage();
             Integer size = limitShowModel.getLimit();
