@@ -16,6 +16,7 @@
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="../js/move-top.js"></script>
 <script type="text/javascript" src="../js/easing.js"></script>
+<script type="text/javascript" src="../js/personalInfo.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){		
@@ -58,182 +59,44 @@
 		</div>
 <!-- //header -->
 <!-- blog -->
-	<div class="blog">
+	<div class="blog" style="height: 650px;">
 		<div class="blog-left">
 			<div class="blog-left-info">
-				<h3><a href="orderPlace.html">Duis ultricies pharetra donec accumsan malesuada orci.</a></h3>
-				<a href="orderPlace.html"><img src="../images/11.jpg" alt=" " /></a>
-				<ul>
-					<li class="men"><a href="#" class="cmn1">SUPER USER</a></li>
-					<li class="date">2015-04-20</li>
-					<li class="com"><a href="#" class="cmn">3 COMMENTS</a></li>
-				</ul>
-				<a href="orderPlace.html" class="hvr-bounce-to-left2">READ MORE</a>
+				<h3><span>个人信息</span></h3>
+					<ul>
+						<li style="width: 100px;">
+							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+							<span class="glyphicon-class">用户名</span>
+
+						</li>
+						<li>
+							<span id="nickName"></span>
+						</li>
+					</ul>
+					<ul>
+						<li style="width: 100px;">
+							<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+							<span class="glyphicon-class">真实姓名</span>
+						</li>
+						<li>
+							<span id="userName"></span>
+						</li>
+					</ul>
+					<ul>
+						<li style="width: 100px;">
+							<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+							<span class="glyphicon-class">手机号</span>
+						</li>
+						<li>
+							<span id="phone"></span>
+						</li>
+					</ul>
 			</div>
-			<div class="blog-left-info">
-				<h3><a href="orderPlace.html">Duis ultricies pharetra donec accumsan malesuada orci.</a></h3>
-				<a href="orderPlace.html"><img src="../images/12.jpg" alt=" " /></a>
-				<ul>
-					<li class="men"><a href="#" class="cmn1">SUPER USER</a></li>
-					<li class="date">2015-04-20</li>
-					<li class="com"><a href="#" class="cmn">3 COMMENTS</a></li>
-				</ul>
-				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
-				Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. 
-				Phasellus porta. Fusce suscipit varius mi. Cum sociis natoque penatibus 
-				et magnis dis parturient montes, nascetur ridiculus mus. Nulla dui.
-				Fusce feugiat malesuada odio. Morbi nunc odio, gravida at, cursus nec, 
-				luctus a, lorem. Maecenas tristique orci ac sem. Duis ultricies pharetra magna. 
-				Donec accumsan malesuada orci. Donec sit amet eros. Lorem ipsum dolor sit amet, 
-				consectetuer adipiscing elit. Mauris fermentum dictum magna. Sed laoreet aliquam leo. 
-				Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit. Aenean auctor wisi
-				et urna. Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus.</p>
-				<a href="orderPlace.html" class="hvr-bounce-to-left2">READ MORE</a>
-			</div>
+
 		</div>
-		<div class="blog-right">
-			<h3>Categories</h3>
-			<ul>
-				<li><a href="#">Aliquam erat volutpat</a></li>
-				<li><a href="#">Integer rutrum ante eu lacus</a></li>
-				<li><a href="#">Cum sociis natoque penatibus</a></li>
-				<li><a href="#">Mauris fermentum dictum magna</a></li>
-				<li><a href="#">Sed laoreet aliquam leo</a></li>
-				<li><a href="#">Cum sociis natoque penatibus</a></li>
-			</ul>
-			<div class="recent">
-				<h3>Recent Comments</h3>
-				<div class="recent-grids">
-					<div class="recent-grid">
-						<div class="wom">
-							<a href="#"><img src="../images/ff.jpg" alt=" " /></a>
-						</div>
-						<div class="wom-right">
-							<h4><a href="#">Integer rutrum ante eu</a></h4>
-							<p>Mauris fermentum dictum magna. Sed laoreet aliquam leo. 
-								Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit.</p>
-						</div>
-						<div class="clearfix"> </div>
-					</div>
-					<div class="recent-grid">
-						<div class="wom">
-							<a href="#"><img src="../images/cc.jpg" alt=" " /></a>
-						</div>
-						<div class="wom-right">
-							<h4><a href="#">Integer rutrum ante eu</a></h4>
-							<p>Mauris fermentum dictum magna. Sed laoreet aliquam leo. 
-								Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit.</p>
-						</div>
-						<div class="clearfix"> </div>
-					</div>
-					<div class="recent-grid">
-						<div class="wom">
-							<a href="#"><img src="../images/ff.jpg" alt=" " /></a>
-						</div>
-						<div class="wom-right">
-							<h4><a href="#">Integer rutrum ante eu</a></h4>
-							<p>Mauris fermentum dictum magna. Sed laoreet aliquam leo. 
-								Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit.</p>
-						</div>
-						<div class="clearfix"> </div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-top-grid1">
-				<h3>Recent Tags</h3>
-				<ul class="tag2">
-					<li><a href="#">awesome</a></li>
-					<li><a href="#">strategy</a></li>
-					<li><a href="#">development</a></li>
-				</ul>
-				<ul class="tag2">
-					<li><a href="#">css</a></li>
-					<li><a href="#">photoshop</a></li>
-					<li><a href="#">photography</a></li>
-					<li><a href="#">html</a></li>
-				</ul>
-				<ul class="tag2">
-					<li><a href="#">awesome</a></li>
-					<li><a href="#">strategy</a></li>
-					<li><a href="#">development</a></li>
-				</ul>
-				<ul class="tag2">
-					<li><a href="#">css</a></li>
-					<li><a href="#">photoshop</a></li>
-					<li><a href="#">photography</a></li>
-					<li><a href="#">html</a></li>
-				</ul>
-				<ul class="tag2">
-					<li><a href="#">awesome</a></li>
-					<li><a href="#">strategy</a></li>
-					<li><a href="#">development</a></li>
-				</ul>
-			</div>
-			<div class="poll">
-				<h3>Poll</h3>
-					<div class="bar">
-						<p>UX/UX</p>
-					</div>
-					<div class="bar1">
-						<p>38%</p>
-					</div>
-					<div class="clearfix"> </div>
-				<div class="skills">
-					 <div class="skill1" style="width:100%"> </div>							
-				</div>
-					<div class="bar">
-						<p>HTML / CSS3 / SASS</p>
-					</div>
-					<div class="bar1">
-						<p>10%</p>
-					</div>
-					<div class="clearfix"> </div>
-				<div class="skills">
-					 <div class="skill2" style="width:90%"> </div>							
-				</div>
-					<div class="bar">
-						<p>Javascript</p>
-					</div>
-					<div class="bar1">
-						<p>50%</p>
-					</div>
-					<div class="clearfix"> </div>
-				<div class="skills">
-					 <div class="skill3" style="width:75%"> </div>							
-				</div>
-					<div class="bar">
-						<p>Wordpress</p>
-					</div>
-					<div class="bar1">
-						<p>38%</p>
-					</div>
-					<div class="clearfix"> </div>
-				<div class="skills">
-					 <div class="skill4" style="width:60%"> </div>							
-				</div>
-					<div class="bar">
-						<p>Php</p>
-					</div>
-					<div class="bar1">
-						<p>30%</p>
-					</div>
-					<div class="clearfix"> </div>
-				<div class="skills">
-					 <div class="skill5" style="width:60%"> </div>							
-				</div>
-			</div>
-		</div>
+
 		<div class="clearfix"> </div>
-		<div class="news-bottom">
-			<ul>
-				<li><a href="#" class="new1">PREV</a></li>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#" class="new1">NEXT</a></li>
-			</ul>
-		</div>
+
 	</div>
 <!-- //blog -->
 <!-- footer -->
@@ -254,19 +117,19 @@
 	</div>
 <!-- here stars scrolling icon -->
 	<script type="text/javascript">
-									$(document).ready(function() {
-										/*
-										var defaults = {
-								  			containerID: 'toTop', // fading element id
-											containerHoverID: 'toTopHover', // fading element hover id
-											scrollSpeed: 1200,
-											easingType: 'linear' 
-								 		};
-										*/
-										
-										$().UItoTop({ easingType: 'easeOutQuart' });
-										
-									});
+		$(document).ready(function() {
+			/*
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+			};
+			*/
+
+			$().UItoTop({ easingType: 'easeOutQuart' });
+
+		});
 	</script>
 <!-- //here ends scrolling icon -->
 </body>
