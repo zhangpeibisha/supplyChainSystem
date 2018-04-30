@@ -8,11 +8,7 @@ $(function () {
     var oButtonInit = new ButtonInit();
     oButtonInit.Init();
 
-    //查询
-    $("#btn_query").click(function (){
-        console.log($("#Name").val());
-        this.TableInit;
-    });
+
 
     //删除
     $("#btn_delete").click(function (){
@@ -21,29 +17,89 @@ $(function () {
             alert("请至少选中一行")
         } else {
             var putTemp = new Array();
+            var bb = "";
             for(var i=0;i<temp.length;i++){
-                putTemp[i]=temp[i].id;
-            }
+               /* putTemp[i]=temp[i].id;
+                var aa = temp[i].id;*/
+                bb =bb+ "ids="+temp[i].id+"&";
 
+            }
+            console.log(bb);
             $.ajax({
                 type: "get",
-                url: "/api/materialMerchants/deleteByIds.do",
-                data: {"ids": putTemp},
+                url: "/api/materialMerchants/deleteByIds.do"+"?"+ bb,
+               /* data: {"ids": bb},*/
                 dataType: "json",
                 success: function(data) {
                     if(data.status == "1"){
                         alert("删除成功");
+                        window.location.href="supplierList.html";
                     }
                     else{
                         alert("删除失败");
+                        window.location.href="supplierList.html";
                     }
                 },
                 error: function() {
                     alert("删除失败");
+                    window.location.href="supplierList.html";
                 }
             });
         }
     });
+    //编辑弹框出现
+    $("#btn_edit").click(function(){
+       var temp= $("#supplierTable").bootstrapTable('getSelections');
+       if(temp.length<=0){
+           alert("请至少选中一行");
+       }else if(temp.length==1){
+
+
+           $("#supplierEdit").modal({show: true});
+           $("#btn_submit_Edit").click(function () {
+               var id = temp[0].id;
+               console.log(id);
+               var nickName = $("#nickNameEdit").val();
+               var address = $("#addressEdit").val();
+               var inventory = $("#inventoryEdit").val();
+               var percentOfPass = $("#percentOfPassEdit").val();
+               var goodsName = $("#goodsNameEdit").val();
+               var unitPrice = $("#unitPriceEdit").val();
+
+               $.ajax({
+                   type: "get",
+                   url: '/api/materialMerchants/update.do',
+                   data: {
+                       "nickName": nickName,
+                       /*"address": address,*/
+                       "inventory": inventory,
+                       "percentOfPass": percentOfPass,
+                       "goodsName": goodsName,
+                       "unitPrice": unitPrice
+                   },
+                   dataType: "json",
+                   success: function (data) {
+                       if (data.status == 1) {
+                           alert("修改成功");
+                           $("#supplierEdit").modal({show: false});
+                       }
+                       else {
+                           alert("修改失败");
+                           $("#supplierEdit").modal({show: false});
+                       }
+                   },
+                   error: function () {
+                       alert("修改失败");
+                       $("#supplierEdit").modal({show: false});
+                   }
+               });
+
+           });
+       }else{
+           alert('最多只能选择一行');
+       }
+    });
+
 
     //新增弹框出现
     $("#btn_add").click(function (){
@@ -109,7 +165,6 @@ var TableInit = function () {
             pageSize: 10,                       //每页的记录行数（*）
             pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
             search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
-            total: 10,
             strictSearch: true,
             showColumns: true,                  //是否显示所有的列
             showRefresh: true,                  //是否显示刷新按钮
@@ -130,20 +185,16 @@ var TableInit = function () {
             columns: [{
                 checkbox: true
             }, {
-                field: 'nickName',
-                title: '名称'
-            },{
-                field: 'createTime',
-                title: '创建时间',
-                visible:false
-            }, {
-                field: 'goodsName',
-                title: '商品名称',
-                visible:false
-            }, {
                 field: 'id',
                 title: '编号',
                 visible:false
+            }, {
+                field: 'nickName',
+                title: '名称'
+            },{
+                field: 'goodsName',
+                title: '商品名称',
+                visible: true
             }, {
                 field: 'unitPrice',
                 title: '单价'
@@ -159,18 +210,37 @@ var TableInit = function () {
             } ]
         });
     };
+    //查询
+    $("#btn_query").click(function (){
+        console.log($("#Name").val());
+        $.ajax({
+            type: 'get',
+            url: "/api/materialMerchants/get.do",
+            dataType: 'json',
+            data: {
+                nickName: $("#Name").val()
+            },
+            success: function(data){
+
+                console.log("serachResult:"+data.list);
+               // $('#supplierTable').bootstrapTable('removeAll');
+
+                this.data=data.list;
+                $('#supplierTable').bootstrapTable('load',data.list);
+            },
+        })
+    });
 
     //得到查询的参数
     oTableInit.queryParams = function (params) {
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             limit: params.limit,   //页面大小
             offset: params.offset,  //页码
-            Name: $("#Name").val(),  //名称
-            departmentname: $("#txt_search_departmentname").val(),
-            statu: $("#txt_search_statu").val()
+            nickName: $("#Name").val(),  //名称
+           /* departmentname: $("#txt_search_departmentname").val(),
+            statu: $("#txt_search_statu").val()*/
         };
-        console.log('here');
-        console.log(temp.Name);
+        console.log("here:"+temp.nickName);
         return temp;
     };
     return oTableInit;
