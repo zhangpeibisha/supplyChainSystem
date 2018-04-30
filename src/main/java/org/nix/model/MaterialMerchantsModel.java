@@ -5,6 +5,8 @@ import org.nix.model.city.City;
 
 public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
 
+    private String materialMerchantsId;
+
     private String nickName;// 原料商名
 
     private City address;// 原料商地址
@@ -16,6 +18,10 @@ public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
     private String goodsName;// 提供的原料名
 
     private double unitPrice;// 原料单价
+
+    public String getMaterialMerchantsId(){
+        return this.materialMerchantsId;
+    }
 
     public String getNickName(){
         return this.nickName;
@@ -39,6 +45,10 @@ public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
 
     public double getUnitPrice(){
         return this.unitPrice;
+    }
+
+    public void setMaterialMerchantsId(String materialMerchantsId){
+        this.materialMerchantsId = materialMerchantsId;
     }
 
     public void setNickName(String nickName){

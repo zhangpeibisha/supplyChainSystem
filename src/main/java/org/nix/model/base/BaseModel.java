@@ -12,14 +12,15 @@ public class BaseModel<M extends BaseModel<M>> {
 
     protected Integer id;
 
+    //创建时间
     protected Date createTime = new Date();
 
-    public Date getDate() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setDate(Date date) {
-        this.createTime = date;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Integer getId() {

@@ -9,7 +9,7 @@ import java.util.Queue;
  *
  * 城市与城市之间的最短路径
  */
-public class ShortPath extends BaseModel<ShortPath> {
+public class ShortPath extends BaseModel<City>{
 
     // 出发城市
     private City fromCity;

@@ -29,18 +29,18 @@ public class MaterialMerchantsController {
                                                @ModelAttribute LimitShowModel limitShowModel) {
 
         Map<String,Object> resultMap = new HashMap<>();
-        String conditionSql =  "id IS NOT NULL";
+
+        // Sql条件查询语句
+        String conditionSql =  " id IS NOT NULL\n";
         if (materialMerchantsModel.getGoodsName() != null){
-            conditionSql +=  "AND  goodsName like CONCAT('%', #{"+materialMerchantsModel.getGoodsName()+"}, '%') \n";
+            conditionSql += "AND  goodsName like CONCAT('%', #{"+materialMerchantsModel.getGoodsName()+"}, '%')\n";
         }
         if (materialMerchantsModel.getInventory() != 0){
             conditionSql += "AND  inventory like CONCAT('%', #{"+materialMerchantsModel.getInventory()+"}, '%')\n";
         }
-        if (materialMerchantsModel.getUnitPrice() != 0){
-            conditionSql +=   "AND  unitPrice like CONCAT('%', #{"+materialMerchantsModel.getUnitPrice()+"}, '%')\n";
+        if(materialMerchantsModel.getUnitPrice() != 0) {
+            conditionSql += "AND  unitPrice like CONCAT('%', #{"+materialMerchantsModel.getUnitPrice()+"}, '%')\n";
         }
-        System.out.println("sql： \n"  + conditionSql);
-
         try {
             Integer page = limitShowModel.getCurPage();
             Integer size = limitShowModel.getLimit();

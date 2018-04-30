@@ -7,7 +7,7 @@ import org.nix.model.base.BaseModel;
  *
  * 此为原始路径距离
  */
-public class Distance extends BaseModel<Distance> {
+public class Distance extends BaseModel<City> {
 
     // 起点城市
     private City fromCity;
