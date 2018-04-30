@@ -36,6 +36,7 @@ public class UserController {
         }
         return resultMap;
     }
+
     @RequestMapping(value = "/login")
     public Map<String,Object> login(@RequestParam("nickName") String nickName,
                                     @RequestParam("passWord") String passWord) {
@@ -44,6 +45,11 @@ public class UserController {
         userModel.setNickName(nickName);
         userModel.setPassWord(passWord);
         UserModel model = userService.login(userModel);
+        if (model == null){
+            resultMap.put("code",-1);
+            resultMap.put("msg","登陆失败，账号或者密码错误");
+            return resultMap;
+        }
         model.setPassWord("");
         resultMap.put("code",1);
         resultMap.put("user",model);
