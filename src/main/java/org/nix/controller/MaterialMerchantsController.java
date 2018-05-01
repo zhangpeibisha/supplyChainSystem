@@ -1,5 +1,6 @@
 package org.nix.controller;
 
+import org.nix.model.city.City;
 import org.nix.model.dto.LimitShowModel;
 import org.nix.model.MaterialMerchantsModel;
 import org.nix.service.imp.MaterialMerchantsService;
@@ -18,7 +19,7 @@ public class MaterialMerchantsController {
     private MaterialMerchantsService materialMerchantsService;
 
     /**
-     * 根据条件获取用户信息
+     * 根据条件获取原料商信息
      *
      * @param materialMerchantsModel
      *  @param limitShowModel
@@ -33,13 +34,13 @@ public class MaterialMerchantsController {
         // Sql条件查询语句
         String conditionSql =  " id IS NOT NULL\n";
         if (materialMerchantsModel.getGoodsName() != null){
-            conditionSql += "AND  goodsName like CONCAT('%', #{"+materialMerchantsModel.getGoodsName()+"}, '%')\n";
+            conditionSql += "AND  goodsName like CONCAT('%', "+materialMerchantsModel.getGoodsName()+", '%')\n";
         }
         if (materialMerchantsModel.getInventory() != 0){
-            conditionSql += "AND  inventory like CONCAT('%', #{"+materialMerchantsModel.getInventory()+"}, '%')\n";
+            conditionSql += "AND  inventory like CONCAT('%', "+materialMerchantsModel.getInventory()+", '%')\n";
         }
         if(materialMerchantsModel.getUnitPrice() != 0) {
-            conditionSql += "AND  unitPrice like CONCAT('%', #{"+materialMerchantsModel.getUnitPrice()+"}, '%')\n";
+            conditionSql += "AND  unitPrice like CONCAT('%', "+materialMerchantsModel.getUnitPrice()+", '%')\n";
         }
         try {
             Integer page = limitShowModel.getCurPage();
@@ -68,11 +69,18 @@ public class MaterialMerchantsController {
      * @param materialMerchantsModel
      * @return Map<String,Object>
      */
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public Map<String,Object> add(@ModelAttribute MaterialMerchantsModel materialMerchantsModel) {
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public Map<String,Object> add(@ModelAttribute MaterialMerchantsModel materialMerchantsModel,
+                                  @ModelAttribute City city) {
 
         Map<String,Object> resultMap = new HashMap<>();
         try {
+            City cityModel = materialMerchantsService.findCity(city.getCityName());
+            if (cityModel == null){
+                resultMap.put("status", 1); // 地区不存在
+                return resultMap;
+            }
+            materialMerchantsModel.setAddress(cityModel);
             materialMerchantsService.add(materialMerchantsModel);
             resultMap.put("status", 1);
         }catch (Exception e) {
@@ -83,20 +91,27 @@ public class MaterialMerchantsController {
     }
 
     /**
-     * 添加一个原料商
+     * 修改一个原料商
      *
      * @param materialMerchantsModel
      * @return Map<String,Object>
      */
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
-    public Map<String,Object> update(@ModelAttribute MaterialMerchantsModel materialMerchantsModel) {
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public Map<String,Object> update(@ModelAttribute MaterialMerchantsModel materialMerchantsModel,
+                                     @ModelAttribute City city) {
 
         Map<String,Object> resultMap = new HashMap<>();
         try {
+            City cityModel = materialMerchantsService.findCity(city.getCityName());
+            if (city == null){
+                resultMap.put("status", 1); // 地区不存在
+                return resultMap;
+            }
+            materialMerchantsModel.setAddress(cityModel);
             materialMerchantsService.update(materialMerchantsModel);
-            resultMap.put("status", 1);
+            resultMap.put("status", 1); //添加成功
         }catch (Exception e) {
-            resultMap.put("status", 0);
+            resultMap.put("status", 0); // 添加失败
             e.printStackTrace();
         }
         return resultMap;
@@ -108,7 +123,7 @@ public class MaterialMerchantsController {
      * @param id
      * @return Map<String,Object>
      */
-    @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteById", method = RequestMethod.DELETE)
     public Map<String,Object> deleteById(@RequestParam("id") Integer id) {
 
         Map<String,Object> resultMap = new HashMap<>();
@@ -128,7 +143,7 @@ public class MaterialMerchantsController {
      * @param ids
      * @return Map<String,Object>
      */
-    @RequestMapping(value = "/deleteByIds", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteByIds", method = RequestMethod.DELETE)
     public Map<String,Object> deleteByIds(@RequestParam("ids") Integer[] ids) {
 
         Map<String,Object> resultMap = new HashMap<>();

@@ -9,13 +9,13 @@ public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
 
     private String nickName;// 原料商名
 
-    private City address;// 原料商地址
+    private City address = null;// 原料商地址
 
-    private long inventory;// 原料库存
+    private long inventory = 0;// 原料库存
 
     private double percentOfPass;// 原料合格率
 
-    private String goodsName;// 提供的原料名
+    private String goodsName = null;// 提供的原料名
 
     private double unitPrice;// 原料单价
 

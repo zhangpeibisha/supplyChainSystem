@@ -22,6 +22,9 @@
 </div>
 
 <script type="text/javascript">
+    //清除
+    var storage=window.localStorage;
+    storage.clear();
 
     var loginUrl = "/user/login.do";
     $(document).ready(function () {
@@ -40,7 +43,8 @@
                     success: function (data) {
                         console.log(data);
                         if(data.code == "1"){
-                            alert("登录成功");
+
+                            storage["id"]=data.user.id;
                             window.location.href="index.html";
                         }
                         else{

@@ -1,95 +1,70 @@
 package org.nix.model;
 
 import org.nix.model.base.BaseModel;
+public class OrderModel  extends  BaseModel<OrderModel> {
 
-/**
- * Create by zhangpe0312@qq.com on 2018/4/29.
- *
- * 用户订单实体
- */
-public class OrderModel extends BaseModel<OrderModel> {
+    private Integer userId;
 
-    /**
-     * 下订单的用户
-     */
-    private UserModel userModel;
-    /**
-     * 到货天数
-     */
-    private int timeLimit;
-    /**
-     * 需要产品数量
-     */
-    private int needAmount;
-    /**
-     * 合格率
-     */
-    private double percentOfPass;
-    /**
-     * 货物单价
-     */
-    private double unitPrice;
-    /**
-     * 货物名
-     */
-    private String goodsName;
-    /**
-     * 订单总价
-     */
-    private double cost;
+    private  String nickName;
 
+    private Integer timeLimit;// 到货天数
 
+    private long needAmount;// 所需要的产品数量
 
-    /**
-     * get / set
-     */
+    private double percentOfPass;// 合格率；
 
-    public UserModel getUserModel() {
-        return userModel;
+    private double unitPrice;// 货物单价
+
+    private String goodsName;// 货物名字
+
+    private double cost;// 货物总价格
+
+    public Integer getUserId() {
+        return userId;
     }
 
-    public int getTimeLimit() {
+    public String getNickName(){
+        return nickName;
+    }
+
+    public Integer getTimeLimit() {
         return timeLimit;
-    }
+    };
 
-    public int getNeedAmount() {
+    public long getNeedAmount() {
         return needAmount;
-    }
-
-    public double getPercentOfPass() {
-        return percentOfPass;
     }
 
     public double getUnitPrice() {
         return unitPrice;
     }
 
-    public String getGoodsName() {
-        return goodsName;
+    public double getPercentOfPass() {
+        return percentOfPass;
     }
 
     public double getCost() {
         return cost;
     }
 
-    public void setUserModel(UserModel userModel) {
-        this.userModel = userModel;
+    public String getGoodsName() {
+        return goodsName;
     }
 
-    public void setTimeLimit(int timeLimit) {
-        this.timeLimit = timeLimit;
+    public void setUserId(Integer userId){
+        this.userId = userId;
     }
 
-    public void setNeedAmount(int needAmount) {
-        this.needAmount = needAmount;
-    }
-
-    public void setPercentOfPass(double percentOfPass) {
-        this.percentOfPass = percentOfPass;
+    public void setNickName(String nickName){
+        this.nickName = nickName;
     }
 
     public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public void setPercentOfPass(double percentOfPass) {
+        this.percentOfPass = percentOfPass;
     }
 
     public void setGoodsName(String goodsName) {
@@ -98,5 +73,13 @@ public class OrderModel extends BaseModel<OrderModel> {
 
     public void setCost(double cost) {
         this.cost = cost;
+    }
+
+    public void setNeedAmount(long needAmount) {
+        this.needAmount = needAmount;
+    }
+
+    public void setTimeLimit(Integer timeLimit) {
+        this.timeLimit = timeLimit;
     }
 }

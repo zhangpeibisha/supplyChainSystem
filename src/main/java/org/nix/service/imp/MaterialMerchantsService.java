@@ -1,20 +1,21 @@
 package org.nix.service.imp;
 
+import org.nix.dao.mapper.CityMapper;
 import org.nix.dao.mapper.MaterialMerchantsMapper;
-import org.nix.model.dto.LimitShowModel;
+import org.nix.model.city.City;
 import org.nix.model.MaterialMerchantsModel;
-import org.nix.model.UserModel;
 import org.nix.service.BaseService;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class MaterialMerchantsService extends BaseService<MaterialMerchantsModel> {
 
     @Resource(name = "materialMerchantsMapper")
     private MaterialMerchantsMapper materialMerchantsMapper;
+
+    @Resource(name = "cityMapper")
+    private CityMapper cityMapper;
 
     /**
      *
@@ -25,6 +26,15 @@ public class MaterialMerchantsService extends BaseService<MaterialMerchantsModel
         return materialMerchantsMapper.counts(materialMerchantsModel.getGoodsName(),
                 materialMerchantsModel.getInventory(),
                 materialMerchantsModel.getUnitPrice());
+    }
+
+    /**
+     * 取地区对象
+     * @param city_name
+     * @return
+     */
+    public City findCity(String city_name){
+        return cityMapper.getlist(city_name);
     }
 
 }

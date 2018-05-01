@@ -41,7 +41,7 @@
 
 
     <!--新增一个原料商-->
-    <insert id="insert" parameterType="org.nix.model.UserModel">
+    <insert id="insert" parameterType="org.nix.model.MaterialMerchantsModel">
         insert into `t_materialMerchants`
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -53,39 +53,39 @@
             <if test="address != null">
                 `address`,
             </if>
-            <if test="inventory != null">
+            <if test="inventory != 0">
                 `inventory`,
             </if>
-            <if test="percentOfPass != null">
+            <if test="percentOfPass != 0">
                 `percentOfPass`,
             </if>
             <if test="goodsName != null">
                 `goodsName`,
             </if>
-            <if test="unitPrice != null">
-                `unitPrice`,
+            <if test="unitPrice != 0">
+                `unitPrice`
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
-                #{id,jdbcType=INTEGER}
+                #{id,jdbcType=INTEGER},
             </if>
             <if test="nickName != null">
-                #{nickName,jdbcType=VARCHAR}
+                #{nickName,jdbcType=VARCHAR},
             </if>
             <if test="address != null">
-                #{address.id,jdbcType=VARCHAR}
+                #{address.id,jdbcType=VARCHAR},
             </if>
-            <if test="inventory != null">
-                #{inventory,jdbcType=INT}
+            <if test="inventory != 0">
+                #{inventory,jdbcType=INTEGER},
             </if>
-            <if test="percentOfPass != null">
-                #{percentOfPass,jdbcType=DECIMAL}
+            <if test="percentOfPass != 0">
+                #{percentOfPass,jdbcType=DECIMAL},
             </if>
             <if test="goodsName != null">
-                #{goodsName,jdbcType=VARCHAR}
+                #{goodsName,jdbcType=VARCHAR},
             </if>
-            <if test="unitPrice != null">
+            <if test="unitPrice != 0">
                 #{unitPrice,jdbcType=DECIMAL}
             </if>
         </trim>
