@@ -25,6 +25,7 @@ public class XmlService {
     public static final String modelSuffix = "Model";
 
 
+
     /**
      * 执行还main方法会自动生成mapping.xml
      * */
@@ -34,7 +35,7 @@ public class XmlService {
 
     public void startGenerateMappingXml(){
         FreemakerRoot freemaker = new FreemakerRoot();
-        List<Class<?>> classes = getClasses(getModelFileName());
+        List<Class<?>> classes = getClasses(getModelFileName(new File(modelPath),null));
         for (Class<?> clazz : classes) {
             try {
                 long start = System.currentTimeMillis();
@@ -54,8 +55,7 @@ public class XmlService {
     /**
      * 获取model路径下的model.java文件名  （类名）
      * */
-    private List<String> getModelFileName(){
-        File dir = new File(modelPath);
+    private List<String> getModelFileName(File dir,String base){
         File[] dirFiles = dir.listFiles(new FileFilter() {
             @Override
             public boolean accept(File file) {
@@ -70,7 +70,10 @@ public class XmlService {
         for (File file:dirFiles){
             if (isModelFile(file.getName())){
                 LogKit.info(this.getClass(),"获取到文件" + file.getName());
-                javaFileNames.add(file.getName());
+                javaFileNames.add(base == null ? file.getName() : base + "." + file.getName());
+            }
+            if (file.isDirectory()) {
+                javaFileNames.addAll(getModelFileName(file,base == null ? file.getName() : base + "." + file.getName()));
             }
         }
         return javaFileNames;

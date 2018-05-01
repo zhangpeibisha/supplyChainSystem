@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>personalInfo</title>
+<title>Single</title>
 <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="../resource/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!-- js -->
-    <script src="../resource/js/jquery.min.js"></script>
-<!-- //js -->
+<script src="../resource/js/jquery.min.js"></script>
+    <!-- //js -->
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="../js/move-top.js"></script>
 <script type="text/javascript" src="../js/easing.js"></script>
-<script type="text/javascript" src="../js/personalInfo.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){		
@@ -40,9 +40,8 @@
 				<span class="menu"><img src="../images/menu.png" alt=" "/></span>
 				<ul class="nav1">
 					<li><a href="index.html" class="act">HOME<span>START HERE</span></a></li>
-					<li class="cap"><a href="personalInfo.html" class="act3">个人中心<span>详情</span></a></li>
-                    <li><a href="orderList.html" class="act4">订单列表<span>详情</span></a></li>
-                    <li><a href="supplierList.html" class="act2">原料商列表<span>详情</span></a></li>
+					<li><a href="personalInfo.html" class="act3">个人中心<span>详情</span></a></li>
+					<li class="cap"><a href="#" class="act4">下单模块<span>测试</span></a></li>
 					<li><a href="login.html" class="act1">退出账号<span>退出</span></a></li>
 				</ul>
 			</div>
@@ -58,47 +57,24 @@
 				<!-- //script for menu -->
 		</div>
 <!-- //header -->
-<!-- blog -->
-	<div class="blog" style="height: 650px;">
-		<div class="blog-left">
-			<div class="blog-left-info">
-				<h3><span>个人信息</span></h3>
-					<ul>
-						<li style="width: 100px;">
-							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-							<span class="glyphicon-class">用户名</span>
-
-						</li>
-						<li>
-							<span id="nickName"></span>
-						</li>
-					</ul>
-					<ul>
-						<li style="width: 100px;">
-							<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-							<span class="glyphicon-class">真实姓名</span>
-						</li>
-						<li>
-							<span id="userName"></span>
-						</li>
-					</ul>
-					<ul>
-						<li style="width: 100px;">
-							<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
-							<span class="glyphicon-class">手机号</span>
-						</li>
-						<li>
-							<span id="phone"></span>
-						</li>
-					</ul>
-			</div>
-
-		</div>
-
+<!-- single -->
+	<div class="single">
 		<div class="clearfix"> </div>
-
+		<div class="three-com">
+			<div class="leave-comment">
+				<h3>确定订单</h3>
+				<p>向厂家提出订单需求，以获得产品</p>
+				<form>
+					<input type="text" placeholder="Name" required=" ">
+					<input type="text" placeholder="Email" required=" ">
+					<input type="text" placeholder="Your Website" required=" ">
+					<textarea placeholder="Message" required></textarea>
+					<input type="submit" value="发送订单">
+					<div class="clearfix"> </div>
+				</form>
+			</div>
 	</div>
-<!-- //blog -->
+<!-- single -->
 <!-- footer -->
 	<div class="footer">
 		<div class="footer-left">
