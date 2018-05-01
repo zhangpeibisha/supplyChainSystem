@@ -34,13 +34,13 @@ public class OrderController {
         // Sql条件查询语句
         String conditionSql =  "t_o.userId = t_u.id\n";
         if (orderModel.getNickName() != null){
-            conditionSql += "AND  goodsName like CONCAT('%', #{"+orderModel.getNickName()+"}, '%')\n";
+            conditionSql += "AND  goodsName like CONCAT('%', "+orderModel.getNickName()+", '%')\n";
         }
         if (orderModel.getGoodsName() != null){
-            conditionSql += "AND  inventory like CONCAT('%', #{"+orderModel.getGoodsName()+"}, '%')\n";
+            conditionSql += "AND  inventory like CONCAT('%', "+orderModel.getGoodsName()+", '%')\n";
         }
         if(orderModel.getUnitPrice() != 0) {
-            conditionSql += "AND  unitPrice like CONCAT('%', #{"+orderModel.getUnitPrice()+"}, '%')\n";
+            conditionSql += "AND  unitPrice like CONCAT('%', "+orderModel.getUnitPrice()+", '%')\n";
         }
         try {
             Integer page = limitShowModel.getCurPage();

@@ -34,13 +34,13 @@ public class MaterialMerchantsController {
         // Sql条件查询语句
         String conditionSql =  " id IS NOT NULL\n";
         if (materialMerchantsModel.getGoodsName() != null){
-            conditionSql += "AND  goodsName like CONCAT('%', #{"+materialMerchantsModel.getGoodsName()+"}, '%')\n";
+            conditionSql += "AND  goodsName like CONCAT('%', "+materialMerchantsModel.getGoodsName()+", '%')\n";
         }
         if (materialMerchantsModel.getInventory() != 0){
-            conditionSql += "AND  inventory like CONCAT('%', #{"+materialMerchantsModel.getInventory()+"}, '%')\n";
+            conditionSql += "AND  inventory like CONCAT('%', "+materialMerchantsModel.getInventory()+", '%')\n";
         }
         if(materialMerchantsModel.getUnitPrice() != 0) {
-            conditionSql += "AND  unitPrice like CONCAT('%', #{"+materialMerchantsModel.getUnitPrice()+"}, '%')\n";
+            conditionSql += "AND  unitPrice like CONCAT('%', "+materialMerchantsModel.getUnitPrice()+", '%')\n";
         }
         try {
             Integer page = limitShowModel.getCurPage();
