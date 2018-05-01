@@ -19,7 +19,7 @@ public class MaterialMerchantsController {
     private MaterialMerchantsService materialMerchantsService;
 
     /**
-     * 根据条件获取用户信息
+     * 根据条件获取原料商信息
      *
      * @param materialMerchantsModel
      *  @param limitShowModel
@@ -69,7 +69,7 @@ public class MaterialMerchantsController {
      * @param materialMerchantsModel
      * @return Map<String,Object>
      */
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Map<String,Object> add(@ModelAttribute MaterialMerchantsModel materialMerchantsModel,
                                   @ModelAttribute City city) {
 
@@ -91,12 +91,12 @@ public class MaterialMerchantsController {
     }
 
     /**
-     * 添加一个原料商
+     * 修改一个原料商
      *
      * @param materialMerchantsModel
      * @return Map<String,Object>
      */
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public Map<String,Object> update(@ModelAttribute MaterialMerchantsModel materialMerchantsModel,
                                      @ModelAttribute City city) {
 
@@ -123,7 +123,7 @@ public class MaterialMerchantsController {
      * @param id
      * @return Map<String,Object>
      */
-    @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteById", method = RequestMethod.DELETE)
     public Map<String,Object> deleteById(@RequestParam("id") Integer id) {
 
         Map<String,Object> resultMap = new HashMap<>();
@@ -143,7 +143,7 @@ public class MaterialMerchantsController {
      * @param ids
      * @return Map<String,Object>
      */
-    @RequestMapping(value = "/deleteByIds", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteByIds", method = RequestMethod.DELETE)
     public Map<String,Object> deleteByIds(@RequestParam("ids") Integer[] ids) {
 
         Map<String,Object> resultMap = new HashMap<>();

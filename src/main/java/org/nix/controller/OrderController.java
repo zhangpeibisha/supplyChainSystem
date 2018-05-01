@@ -69,7 +69,7 @@ public class OrderController {
      * @param orderModel
      * @return Map<String,Object>
      */
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Map<String,Object> add(@ModelAttribute OrderModel orderModel) {
 
         Map<String,Object> resultMap = new HashMap<>();
@@ -96,7 +96,7 @@ public class OrderController {
      * @param orderModel
      * @return Map<String,Object>
      */
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public Map<String,Object> update(@ModelAttribute OrderModel orderModel) {
 
         Map<String,Object> resultMap = new HashMap<>();
@@ -122,7 +122,7 @@ public class OrderController {
      * @param id
      * @return Map<String,Object>
      */
-    @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteById", method = RequestMethod.DELETE)
     public Map<String,Object> deleteById(@RequestParam("id") Integer id) {
 
         Map<String,Object> resultMap = new HashMap<>();
@@ -142,7 +142,7 @@ public class OrderController {
      * @param ids
      * @return Map<String,Object>
      */
-    @RequestMapping(value = "/deleteByIds", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteByIds", method = RequestMethod.DELETE)
     public Map<String,Object> deleteByIds(@RequestParam("ids") Integer[] ids) {
 
         Map<String,Object> resultMap = new HashMap<>();
