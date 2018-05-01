@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.nix.cinema.dao.${oneself.model_name}Mapper">
+<mapper namespace="org.nix.dao.mapper.${oneself.model_name}Mapper">
     <resultMap id="BaseResultMap" type="${oneself.type}">
     <#list oneself.params as param>
     <#if param.name == "id" >

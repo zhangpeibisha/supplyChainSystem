@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.nix.dao.mapper.RoleMapper">
+    <resultMap id="BaseResultMap" type="org.nix.model.RoleModel">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="roleName" property="roleName" jdbcType="VARCHAR"/>
+        <result column="msg" property="msg" jdbcType="VARCHAR"/>
+    </resultMap>
+    <insert id="insert" parameterType="org.nix.model.RoleModel">
+        insert into `t_role`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                `id`,
+            </if>
+            <if test="roleName != null">
+                `roleName`,
+            </if>
+            <if test="msg != null">
+                `msg`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+             <if test="id != null">
+                #{id,jdbcType=java.lang.Integer},
+             </if>
+             <if test="roleName != null">
+                #{roleName,jdbcType=VARCHAR},
+             </if>
+             <if test="msg != null">
+                #{msg,jdbcType=VARCHAR},
+             </if>
+        </trim>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete  from `t_role` where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <update id="update" parameterType="org.nix.model.RoleModel">
+        updata `t_role`
+        set
+        <trim prefix="" suffix="" suffixOverrides=",">
+            <if test="true">
+                `id` = #{id,jdbcType=java.lang.Integer},
+            </if>
+            <if test="true">
+                `roleName` = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="true">
+                `msg` = #{msg,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="select" parameterType="int" resultMap="BaseResultMap">
+        select * from `t_role` where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="list" resultMap="BaseResultMap">
+        select * from `t_role`
+        <if test="conditions != null">
+            where ${conditions}
+        </if>
+        <if test="order != null and sort != null">
+            order by ${order} ${sort}
+        </if>
+        <if test="limit != -1 and limit != -1">
+            limit #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="selectRoleLazy" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from `t_role` where id = #{roleModel}
+    </select>
+</mapper>
