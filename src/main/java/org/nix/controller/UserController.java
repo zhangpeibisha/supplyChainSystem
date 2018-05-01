@@ -1,5 +1,8 @@
 package org.nix.controller;
 
+import org.nix.annotation.Authority;
+import org.nix.common.enums.RoleEnum;
+import org.nix.common.enums.SessionHelper;
 import org.nix.model.UserModel;
 import org.nix.service.imp.UserService;
 import org.omg.CORBA.OBJ_ADAPTER;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,7 +43,8 @@ public class UserController {
 
     @RequestMapping(value = "/login")
     public Map<String,Object> login(@RequestParam("nickName") String nickName,
-                                    @RequestParam("passWord") String passWord) {
+                                    @RequestParam("passWord") String passWord,
+                                    HttpSession session) {
         Map<String,Object> resultMap = new HashMap<>();
         UserModel userModel = new UserModel();
         userModel.setNickName(nickName);
@@ -50,9 +55,10 @@ public class UserController {
             resultMap.put("msg","登陆失败，账号或者密码错误");
             return resultMap;
         }
-        model.setPassWord("");
+        model.setPassWord(null);
         resultMap.put("code",1);
         resultMap.put("user",model);
+        session.setAttribute(SessionHelper.SESSION_HELPER_USER.getSessionKey(),model);
         return resultMap;
     }
 
@@ -82,6 +88,13 @@ public class UserController {
         }
         return resultMap;
     }
+
+    /**
+     * 用户和厂家登陆后，才能修改用户信息
+     * @param userModel 用户对象
+     * @return 操作结果
+     */
+    @Authority(roles = {RoleEnum.ROLE_USER,RoleEnum.ROLE_FACTORY})
     @RequestMapping(value = "/update",method = RequestMethod.GET)
     public Map<String,Object> update(@ModelAttribute UserModel userModel) {
         Map<String,Object> resultMap = new HashMap<>();

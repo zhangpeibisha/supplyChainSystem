@@ -8,6 +8,17 @@
         <result column="userName" property="userName" jdbcType="VARCHAR"/>
         <result column="phone" property="phone" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <!--包含了角色信息的用户信息-->
+    <resultMap id="roleResultMap" type="org.nix.model.UserModel" extends="BaseResultMap">
+        <association property="roleModel" column="role" javaType="org.nix.model.RoleModel">
+            <id column="id" property="id" jdbcType="INTEGER"/>
+            <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+            <result column="msg" property="msg" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+
     <insert id="insert" parameterType="org.nix.model.UserModel">
         insert into `t_user`
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -67,7 +78,7 @@
         </trim>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <select id="select" parameterType="int" resultMap="BaseResultMap">
+    <select id="select" parameterType="int" resultMap="roleResultMap">
         select * from `t_user` where id = #{id,jdbcType=INTEGER}
     </select>
     <select id="list" resultMap="BaseResultMap">
