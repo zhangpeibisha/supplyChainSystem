@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.nix.dao.mapper.OrderMapper" >
+
+    <resultMap id="BaseResultMap" type="org.nix.model.OrderModel">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="userId" property="userId" jdbcType="INTEGER"/>
+        <result column="nickName" property="nickName" jdbcType="VARCHAR"/>
+        <result column="timeLimit" property="timeLimit" jdbcType="SMALLINT"/>
+        <result column="needAmount" property="needAmount" jdbcType="INTEGER"/>
+        <result column="percentOfPass" property="percentOfPass" jdbcType="DECIMAL"/>
+        <result column="unitPrice" property="unitPrice" jdbcType="DECIMAL"/>
+        <result column="goodsName" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="cost" property="cost" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <!--根据条件查找数据条数-->
+    <select id="counts" resultType="long" >
+        SELECT
+        count(*)
+        FROM
+        t_userorder AS t_o,
+        t_user AS t_u
+        WHERE
+        t_o.userId = t_u.id
+        <if test="nickName != null and nickName.length() > 0">
+            AND  nickName like CONCAT('%', #{nickName}, '%')
+        </if>
+
+        <if test="goodsName != null and goodsName.length() > 0">
+            AND  goodsName like CONCAT('%', #{goodsName}, '%')
+        </if>
+        <if test="unitPrice != 0">
+            AND  unitPrice like CONCAT('%', #{unitPrice}, '%')
+        </if>
+    </select>
+
+
+
+    <!--新增一个订单-->
+    <insert id="insert" parameterType="org.nix.model.OrderModel">
+        insert into `t_userorder`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                `id`,
+            </if>
+            <if test="userId != 0">
+                `userId`,
+            </if>
+            <if test="timeLimit != 0">
+                `timeLimit`,
+            </if>
+            <if test="needAmount != 0">
+                `needAmount`,
+            </if>
+            <if test="percentOfPass != 0">
+                `percentOfPass`,
+            </if>
+            <if test="unitPrice != 0">
+                `unitPrice`,
+            </if>
+            <if test="goodsName != null">
+                `goodsName`,
+            </if>
+            <if test="cost != 0">
+                `cost`
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userId != 0">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="timeLimit != 0">
+                #{timeLimit,jdbcType=SMALLINT},
+            </if>
+            <if test="needAmount != 0">
+                #{needAmount,jdbcType=INTEGER},
+            </if>
+            <if test="percentOfPass != 0">
+                #{percentOfPass,jdbcType=DECIMAL},
+            </if>
+            <if test="unitPrice != 0">
+                #{unitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="cost != 0">
+                #{cost,jdbcType=DECIMAL}
+            </if>
+        </trim>
+    </insert>
+
+    <!--根据id删除一个原料商-->
+    <delete id="delete">
+        delete  from `t_userorder` where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <!--更新原料商的信息-->
+    <update id="update" parameterType="org.nix.model.OrderModel">
+        update `t_userorder`
+        set
+        <trim prefix="" suffix="" suffixOverrides=",">
+            <if test="userId != null">
+                `userId` = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="timeLimit != null">
+                `timeLimit` = #{timeLimit,jdbcType=SMALLINT},
+            </if>
+            <if test="needAmount != 0">
+                `needAmount` = #{needAmount,jdbcType=INTEGER},
+            </if>
+            <if test="percentOfPass != 0 ">
+                `percentOfPass` = #{percentOfPass,jdbcType=DECIMAL},
+            </if>
+            <if test="goodsName != null">
+                `goodsName` = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="unitPrice != 0 ">
+                `unitPrice` = #{unitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="cost != 0">
+               `cost` =  #{cost,jdbcType=DECIMAL}
+            </if>
+        </trim>
+        where
+        id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!--根据id获取原料商的具体信息-->
+    <select id="select" resultMap="BaseResultMap">
+          SELECT
+        t_o.id,
+        t_o.timeLimit,
+        t_o.needAmount,
+        t_o.percentOfPass,
+        t_o.cost,
+        t_o.unitPrice,
+        t_o.goodsName,
+        t_u.userName
+        FROM
+        t_userorder AS t_o,
+        t_user AS t_u
+        where
+        t_o.userId = t_u.id AND
+        t_o.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <!--根据条件查找数据-->
+    <select id="list" resultMap="BaseResultMap">
+        SELECT
+        t_o.id,
+        t_o.timeLimit,
+        t_o.needAmount,
+        t_o.percentOfPass,
+        t_o.cost,
+        t_o.unitPrice,
+        t_o.goodsName,
+        t_u.userName
+        FROM
+        t_userorder AS t_o,
+        t_user AS t_u
+        <if test="conditions != null">
+            where ${conditions}
+        </if>
+        <if test="order != null and sort != null">
+            order by ${order} ${sort}
+        </if>
+        <if test="limit != -1 and limit != -1">
+            limit #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="findUserId" resultType="Integer">
+        SELECT
+          id
+        FROM
+          t_user
+        WHERE
+          nickName = #{nickName,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

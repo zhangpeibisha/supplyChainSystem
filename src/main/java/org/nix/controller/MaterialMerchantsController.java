@@ -1,9 +1,9 @@
 package org.nix.controller;
 
+import org.nix.model.city.City;
 import org.nix.model.dto.LimitShowModel;
 import org.nix.model.MaterialMerchantsModel;
 import org.nix.service.imp.MaterialMerchantsService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -69,10 +69,17 @@ public class MaterialMerchantsController {
      * @return Map<String,Object>
      */
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public Map<String,Object> add(@ModelAttribute MaterialMerchantsModel materialMerchantsModel) {
+    public Map<String,Object> add(@ModelAttribute MaterialMerchantsModel materialMerchantsModel,
+                                  @ModelAttribute City city) {
 
         Map<String,Object> resultMap = new HashMap<>();
         try {
+            City cityModel = materialMerchantsService.findCity(city.getCityName());
+            if (cityModel == null){
+                resultMap.put("status", 1); // 地区不存在
+                return resultMap;
+            }
+            materialMerchantsModel.setAddress(cityModel);
             materialMerchantsService.add(materialMerchantsModel);
             resultMap.put("status", 1);
         }catch (Exception e) {
@@ -89,14 +96,21 @@ public class MaterialMerchantsController {
      * @return Map<String,Object>
      */
     @RequestMapping(value = "/update", method = RequestMethod.GET)
-    public Map<String,Object> update(@ModelAttribute MaterialMerchantsModel materialMerchantsModel) {
+    public Map<String,Object> update(@ModelAttribute MaterialMerchantsModel materialMerchantsModel,
+                                     @ModelAttribute City city) {
 
         Map<String,Object> resultMap = new HashMap<>();
         try {
+            City cityModel = materialMerchantsService.findCity(city.getCityName());
+            if (city == null){
+                resultMap.put("status", 1); // 地区不存在
+                return resultMap;
+            }
+            materialMerchantsModel.setAddress(cityModel);
             materialMerchantsService.update(materialMerchantsModel);
-            resultMap.put("status", 1);
+            resultMap.put("status", 1); //添加成功
         }catch (Exception e) {
-            resultMap.put("status", 0);
+            resultMap.put("status", 0); // 添加失败
             e.printStackTrace();
         }
         return resultMap;
