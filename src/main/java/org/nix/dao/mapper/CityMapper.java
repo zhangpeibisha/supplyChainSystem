@@ -1,6 +1,7 @@
 package org.nix.dao.mapper;
 
 import org.nix.model.city.City;
+import org.nix.model.city.Distance;
 
 import java.util.List;
 
@@ -28,4 +29,16 @@ public interface CityMapper {
      * @return 查询失败返回null
      */
      City findCityById(Integer id);
+
+    /**
+     * 批量导入城市距离
+     * @param distances 距离集合
+     */
+     void insertCityDistanceList(List<Distance> distances);
+
+    /**
+     * 批量导入城市
+     * @param cities
+     */
+     void insertCityList(List<City> cities);
 }
