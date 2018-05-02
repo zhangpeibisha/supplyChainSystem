@@ -34,7 +34,7 @@ public class MaterialMerchantsService extends BaseService<MaterialMerchantsModel
      * @return
      */
     public City findCity(String city_name){
-        return cityMapper.getlist(city_name);
+        return cityMapper.findCityByName(city_name);
     }
 
 }
