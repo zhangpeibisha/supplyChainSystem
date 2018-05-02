@@ -6,6 +6,7 @@
 <link href="../css/orderList.css" rel="stylesheet" type="text/css" media="all"/>
 <link href="../resource/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="../resource/bootstrap-table/bootstrap-table.css" rel="stylesheet" type="text/css" media="all">
+<link href="../css/supplierList.css" rel="stylesheet" type="text/css" media="all"/>
 <!-- js -->
 <script src="../resource/js/jquery.min.js"></script>
 <script src="../resource/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
@@ -75,7 +76,7 @@
 			<div class="panel-body">
 				<form id="formSearch" class="form-horizontal">
 					<div class="form-group" style="margin-top: 15px">
-						<label class="control-label col-sm-1" for="Name">名称</label>
+						<label class="control-label col-sm-1" for="Name">商品名称</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control" id="Name">
 						</div>
@@ -151,27 +152,31 @@
 
 					<div class="form-group">
 						<label for="nickName">原料商名</label>
-						<input type="text" name="nickName" data-bind="value:nickName" class="form-control" id="nickName" placeholder="原料商名">
+						<input type="text" name="nickName" class="form-control" id="nickName" placeholder="原料商名">
 					</div>
 					<div class="form-group">
-						<label for="address">原料商地址</label>
-						<input type="text" name="address" data-bind="value:address" class="form-control" id="address" placeholder="原料商地址">
+						<label>原料商地址</label><br>
+						<select class="selectpicker">
+							<option value="">--请选择--</option>
+
+						</select>
+						<!--<input type="text" name="address" class="form-control" id="address" placeholder="原料商地址">-->
 					</div>
 					<div class="form-group">
 						<label for="inventory">原料库存</label>
-						<input type="text" name="inventory" data-bind="value:inventory" class="form-control" id="inventory" placeholder="原料库存">
+						<input type="text" name="inventory" class="form-control" id="inventory" placeholder="原料库存">
 					</div>
 					<div class="form-group">
 						<label for="percentOfPass">原料合格率</label>
-						<input type="text" name="percentOfPass" data-bind="value:percentOfPass" class="form-control" id="percentOfPass" placeholder="原料合格率">
+						<input type="text" name="percentOfPass" class="form-control" id="percentOfPass" placeholder="原料合格率">
 					</div>
 					<div class="form-group">
 						<label for="goodsName">提供的原料名</label>
-						<input type="text" name="goodsName" data-bind="value:goodsName" class="form-control" id="goodsName" placeholder="提供的原料名">
+						<input type="text" name="goodsName" class="form-control" id="goodsName" placeholder="提供的原料名">
 					</div>
 					<div class="form-group">
 						<label for="unitPrice">原料单价</label>
-						<input type="text" name="unitPrice" data-bind="value:unitPrice" class="form-control" id="unitPrice" placeholder="原料单价">
+						<input type="text" name="unitPrice" class="form-control" id="unitPrice" placeholder="原料单价">
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -197,8 +202,12 @@
 						<input type="text" name="nickName" data-bind="value:nickName" class="form-control" id="nickNameEdit" placeholder="原料商名">
 					</div>
 					<div class="form-group">
-						<label for="address">原料商地址</label>
-						<input type="text" name="address" data-bind="value:address" class="form-control" id="addressEdit" placeholder="原料商地址">
+						<label>原料商地址</label><br>
+						<select class="selectpickerEdit">
+							<option value="">--请选择--</option>
+							<option value="111">ces</option>
+						</select>
+						<!--<input type="text" name="address" data-bind="value:address" class="form-control" id="addressEdit" placeholder="原料商地址">-->
 					</div>
 					<div class="form-group">
 						<label for="inventory">原料库存</label>

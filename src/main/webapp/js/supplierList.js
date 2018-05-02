@@ -26,7 +26,7 @@ $(function () {
             }
             console.log(bb);
             $.ajax({
-                type: "get",
+                type: "delete",
                 url: "/api/materialMerchants/deleteByIds.do"+"?"+ bb,
                /* data: {"ids": bb},*/
                 dataType: "json",
@@ -56,11 +56,42 @@ $(function () {
 
 
            $("#supplierEdit").modal({show: true});
+
+           //向地址下拉框里面注入数据
+           $.ajax({
+               type:"",
+               url:"",
+               async:true,
+               success:function (data) {
+                   var str = "";
+                   for(var i = 0;i<data.length;i++){
+                       str+='<option value="data[i].id">'+data[i].value+'</option>'
+                   }
+                   $(".selectpickerEdit").html(str);
+
+                   $(".selectpickerEdit" ).selectpicker('refresh');
+               }
+           });
+
+
+
+           console.log(temp[0])
+
+           //勾选id对应的那条数据内容注入到弹框里面
+           $("#nickNameEdit").val(temp[0].nickName);
+           $("#inventoryEdit").val(temp[0].inventory);
+           $("#percentOfPassEdit").val(temp[0].percentOfPass);
+           $("#goodsNameEdit").val(temp[0].goodsName);
+           $("#unitPriceEdit").val(temp[0].unitPrice);
+
+           //提交
            $("#btn_submit_Edit").click(function () {
                var id = temp[0].id;
                console.log(id);
                var nickName = $("#nickNameEdit").val();
-               var address = $("#addressEdit").val();
+               var address = $(".selectpickerEdit").val();
+               console.log("test")
+               console.log(address);
                var inventory = $("#inventoryEdit").val();
                var percentOfPass = $("#percentOfPassEdit").val();
                var goodsName = $("#goodsNameEdit").val();
@@ -104,6 +135,24 @@ $(function () {
     //新增弹框出现
     $("#btn_add").click(function (){
        $("#supplierAdd").modal({show:true});
+
+       //向地址下拉框里面注入数据
+        $.ajax({
+            type:"",
+            url:"",
+            async:true,
+            success:function (data) {
+                var str = "";
+                for(var i = 0;i<data.length;i++){
+                    str+='<option>'+data[i].value+'</option>'
+                }
+                $(".selectpicker").html(str);
+
+                $(".selectpicker" ).selectpicker('refresh');
+            }
+        });
+
+
     });
     $("#btn_submit").click(function (){
         var nickName = $("#nickName").val();
@@ -114,11 +163,11 @@ $(function () {
         var unitPrice = $("#unitPrice").val();
 
         $.ajax({
-            type: "get",
+            type: "post",
             url: '/api/materialMerchants/add.do',
             data: {
                 "nickName": nickName,
-                /*"address": address,*/
+                "address": address,
                 "inventory": inventory,
                 "percentOfPass": percentOfPass,
                 "goodsName": goodsName,
@@ -129,15 +178,18 @@ $(function () {
                 if(data.status==1) {
                     alert("新增成功");
                     $("#supplierAdd").modal({show:false});
+                    window.location.href="supplierList.html";
                 }
                 else{
                     alert("新增失败");
                     $("#supplierAdd").modal({show:false});
+                    window.location.href="supplierList.html";
                 }
             },
             error: function () {
                 alert("新增失败");
                 $("#supplierAdd").modal({show:false});
+                window.location.href="supplierList.html";
             }
         });
 
@@ -218,14 +270,15 @@ var TableInit = function () {
             url: "/api/materialMerchants/get.do",
             dataType: 'json',
             data: {
-                nickName: $("#Name").val()
+                goodsName: $("#Name").val()
             },
             success: function(data){
-
+                console.log("查询")
                 console.log("serachResult:"+data.list);
                // $('#supplierTable').bootstrapTable('removeAll');
 
-                this.data=data.list;
+                this.data=data.list ;
+               // console.log(this.data)
                 $('#supplierTable').bootstrapTable('load',data.list);
             },
         })
