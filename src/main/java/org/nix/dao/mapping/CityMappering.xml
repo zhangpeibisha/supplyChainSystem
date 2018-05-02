@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.nix.dao.mapper.CityMapper" >
+<mapper namespace="org.nix.dao.mapper.CityMapper">
 
     <resultMap id="BaseResultMap" type="org.nix.model.city.City">
         <id column="id" property="id" jdbcType="INTEGER"/>
@@ -9,7 +9,7 @@
     </resultMap>
 
     <!--根据条件查找数据-->
-    <select id="getlist" resultMap="BaseResultMap">
+    <select id="findCityByName" resultMap="BaseResultMap">
         SELECT
           *
         FROM
@@ -17,5 +17,60 @@
         WHERE
           city_name = #{city_name,jdbcType=VARCHAR}
     </select>
+
+    <!--查询所有城市-->
+    <select id="findCityAll" resultMap="BaseResultMap">
+        SELECT
+          *
+        FROM
+          t_city
+    </select>
+
+    <!--根据条件查找数据-->
+    <select id="findCityById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+          *
+        FROM
+          t_city
+        WHERE
+          id=#{id}
+    </select>
+
+    <insert id="insertCityList" parameterType="java.util.List" useGeneratedKeys="true">
+        insert into t_city
+        (
+        id,
+        createTime,
+        city_name
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id},
+            #{item.createTime},
+            #{item.cityName}
+            )
+        </foreach>
+
+    </insert>
+
+    <insert id="insertCityDistanceList" parameterType="java.util.List" useGeneratedKeys="true">
+        insert into t_city_distance
+        (
+        id,
+        createTime,
+        from_city,
+        to_city,
+        distance
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id},
+            #{item.createTime},
+            #{item.cityName}
+            )
+        </foreach>
+    </insert>
 
 </mapper>

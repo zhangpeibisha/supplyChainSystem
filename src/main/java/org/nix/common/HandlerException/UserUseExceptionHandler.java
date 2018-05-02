@@ -32,4 +32,20 @@ public class UserUseExceptionHandler {
         return null;
     }
 
+    /**
+     * 未知异常，状态码返回 500
+     * @param e 异常对象
+     * @return 需要通知前端的信息
+     */
+    @ExceptionHandler({Exception.class})
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED) //返回状态码 500 服务器未知异常
+    public Map<String,Object> Exception(Exception e){
+        e.printStackTrace();
+        Map<String,Object> map = new HashMap<>();
+        map.put("msg","服务器异常");
+        map.put("code","500");
+        return null;
+    }
+
 }
