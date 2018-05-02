@@ -1,5 +1,6 @@
 package org.nix.controller;
 
+import org.nix.model.city.City;
 import org.nix.model.dto.LimitShowModel;
 import org.nix.model.OrderModel;
 import org.nix.service.imp.MaterialMerchantsService;
@@ -18,6 +19,9 @@ public class OrderController {
     @Resource(name = "orderService")
     private OrderService orderService;
 
+    @Resource(name = "materialMerchantsService")
+    private MaterialMerchantsService materialMerchantsService;
+
     /**
      * 根据条件获取订单信息
      *
@@ -32,7 +36,7 @@ public class OrderController {
         Map<String,Object> resultMap = new HashMap<>();
 
         // Sql条件查询语句
-        String conditionSql =  "t_o.userId = t_u.id\n";
+        String conditionSql =  "t_o.userId = t_u.id AND\nt_o.addressId = t_c.id";
         if (orderModel.getNickName() != null){
             conditionSql += "AND  goodsName like CONCAT('%', "+orderModel.getNickName()+", '%')\n";
         }
@@ -74,13 +78,17 @@ public class OrderController {
 
         Map<String,Object> resultMap = new HashMap<>();
         try {
-            System.out.println(",,,,,,,"+orderModel.getGoodsName());
-            Integer userId = orderService.findUserId(orderModel.getNickName());
-            if (userId == null){
-                resultMap.put("status", 2);// 用户不存在
-                return resultMap;
+            /**获取并验证用户是否存在**/
+            if (orderModel.getUserId() == null || orderModel.getUserId() == 0){
+                System.out.println("............."+orderModel.getNickName());
+                Integer userId = orderService.findUserId(orderModel.getNickName());
+                if (userId == null || userId == 0){
+                    resultMap.put("status", 2);// 用户不存在
+                    return resultMap;
+                }
+                orderModel.setUserId(userId);
             }
-            orderModel.setUserId(userId);
+
             orderService.add(orderModel);
             resultMap.put("status", 1);// 成功添加
         }catch (Exception e) {
@@ -101,12 +109,14 @@ public class OrderController {
 
         Map<String,Object> resultMap = new HashMap<>();
         try {
-            Integer userId = orderService.findUserId(orderModel.getNickName());
-            if (userId == null ){
-                resultMap.put("status", 2);// 用户不存在
-                return resultMap;
-            }
-            orderModel.setUserId(userId);
+            /**获取并验证用户是否存在**/
+                Integer userId = orderService.findUserId(orderModel.getNickName());
+                if (userId == null || userId == 0){
+                    resultMap.put("status", 2);// 用户不存在
+                    return resultMap;
+                }
+                orderModel.setUserId(userId);
+
             orderService.update(orderModel);
             resultMap.put("status", 1);
         }catch (Exception e) {

@@ -19,6 +19,18 @@ public class OrderModel  extends  BaseModel<OrderModel> {
 
     private double cost;// 货物总价格
 
+    private Integer addressId;// 城市ID
+
+    private String cityName;// 城市名字
+
+    public Integer getAddressId(){
+         return addressId;
+    }
+
+    public String getCityName(){
+        return cityName;
+    }
+
     public Integer getUserId() {
         return userId;
     }
@@ -51,6 +63,13 @@ public class OrderModel  extends  BaseModel<OrderModel> {
         return goodsName;
     }
 
+    public void setAddressId(Integer addressId){
+        this.addressId = addressId;
+    }
+
+    public void setCityName(String cityName){
+        this.cityName = cityName;
+    }
     public void setUserId(Integer userId){
         this.userId = userId;
     }
