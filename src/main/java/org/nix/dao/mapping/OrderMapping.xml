@@ -12,6 +12,7 @@
         <result column="unitPrice" property="unitPrice" jdbcType="DECIMAL"/>
         <result column="goodsName" property="goodsName" jdbcType="VARCHAR"/>
         <result column="cost" property="cost" jdbcType="DECIMAL"/>
+        <result column="addressId" property="addressId" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--根据条件查找数据条数-->
@@ -63,7 +64,10 @@
                 `goodsName`,
             </if>
             <if test="cost != 0">
-                `cost`
+                `cost`,
+            </if>
+            <if test="addressId != 0">
+                `addressId`
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -89,7 +93,10 @@
                 #{goodsName,jdbcType=VARCHAR},
             </if>
             <if test="cost != 0">
-                #{cost,jdbcType=DECIMAL}
+                #{cost,jdbcType=DECIMAL},
+            </if>
+            <if test="addressId != 0">
+                #{addressId,jdbcType=INTEGER}
             </if>
         </trim>
     </insert>
@@ -123,7 +130,10 @@
                 `unitPrice` = #{unitPrice,jdbcType=DECIMAL},
             </if>
             <if test="cost != 0">
-               `cost` =  #{cost,jdbcType=DECIMAL}
+               `cost` =  #{cost,jdbcType=DECIMAL},
+            </if>
+            <if test="addressId != 0">
+                `addressId` =  #{addressId,jdbcType=INTEGER}
             </if>
         </trim>
         where
@@ -140,12 +150,15 @@
         t_o.cost,
         t_o.unitPrice,
         t_o.goodsName,
-        t_u.userName
+        t_u.nickName,
+        t_c.city_name as cityName
         FROM
         t_userorder AS t_o,
-        t_user AS t_u
+        t_user AS t_u,
+        t_city AS t_c
         where
         t_o.userId = t_u.id AND
+        t_o.addressId = t_c.id AND
         t_o.id = #{id,jdbcType=INTEGER}
     </select>
 
@@ -159,10 +172,12 @@
         t_o.cost,
         t_o.unitPrice,
         t_o.goodsName,
-        t_u.userName
+        t_u.nickName,
+        t_c.city_name as cityName
         FROM
         t_userorder AS t_o,
-        t_user AS t_u
+        t_user AS t_u,
+        t_city AS t_c
         <if test="conditions != null">
             where ${conditions}
         </if>

@@ -53,7 +53,7 @@
             <if test="address != null">
                 `address`,
             </if>
-            <if test="inventory != 0">
+            <if test="inventory != 0 || inventory != null">
                 `inventory`,
             </if>
             <if test="percentOfPass != 0">
@@ -76,7 +76,7 @@
             <if test="address != null">
                 #{address.id,jdbcType=VARCHAR},
             </if>
-            <if test="inventory != 0">
+            <if test="inventory != 0 || inventory != null">
                 #{inventory,jdbcType=INTEGER},
             </if>
             <if test="percentOfPass != 0">
@@ -105,19 +105,19 @@
                 `nickName` = #{nickName,jdbcType=VARCHAR},
             </if>
             <if test="address != null">
-                `adress` = #{address.id,jdbcType=INTEGER},
+                `address` = #{address.id,jdbcType=INTEGER},
             </if>
             <if test="inventory != 0">
                 `inventory` = #{inventory,jdbcType=INTEGER},
             </if>
             <if test="percentOfPass != 0 and percentOfPass != null">
-                `percentOfPass` = #{percentOfPass,jdbcType=DEIMAL},
+                `percentOfPass` = #{percentOfPass,jdbcType=DECIMAL},
             </if>
             <if test="goodsName != null">
                 `goodsName` = #{goodsName,jdbcType=VARCHAR},
             </if>
             <if test="unitPrice != 0 and unitPrice != null">
-                `unitPrice` = #{unitPrice,jdbcType=DEIMAL},
+                `unitPrice` = #{unitPrice,jdbcType=DECIMAL},
             </if>
         </trim>
         where id = #{id,jdbcType=INTEGER}
@@ -125,12 +125,21 @@
 
     <!--根据id获取原料商的具体信息-->
     <select id="select" resultMap="BaseResultMap">
-        select * from `t_materialMerchants` where id = #{id,jdbcType=INTEGER}
+        selectselect *,t_city.id as addressId
+        from
+          `t_materialMerchants`,
+           t_city
+        where
+         t_materialMerchants.address = t_city.id AND
+         id = #{id,jdbcType=INTEGER}
     </select>
 
     <!--根据条件查找数据-->
     <select id="list" resultMap="BaseResultMap">
-        select * from `t_materialMerchants`
+        select *,t_city.id as addressId
+        from
+          `t_materialMerchants`,
+           t_city
         <if test="conditions != null">
             where ${conditions}
         </if>

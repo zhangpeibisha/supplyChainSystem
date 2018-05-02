@@ -32,22 +32,22 @@ public class MaterialMerchantsController {
         Map<String,Object> resultMap = new HashMap<>();
 
         // Sql条件查询语句
-        String conditionSql =  " id IS NOT NULL\n";
+        String conditionSql =  " t_materialMerchants.address = t_city.id\n";
         if (materialMerchantsModel.getGoodsName() != null){
-            conditionSql += "AND  goodsName like CONCAT('%', "+materialMerchantsModel.getGoodsName()+", '%')\n";
+            conditionSql += "AND  goodsName like CONCAT('%',\""+materialMerchantsModel.getGoodsName()+"\", '%')\n";
         }
         if (materialMerchantsModel.getInventory() != 0){
-            conditionSql += "AND  inventory like CONCAT('%', "+materialMerchantsModel.getInventory()+", '%')\n";
+            conditionSql += "AND  inventory = "+materialMerchantsModel.getInventory()+"\n";
         }
         if(materialMerchantsModel.getUnitPrice() != 0) {
-            conditionSql += "AND  unitPrice like CONCAT('%', "+materialMerchantsModel.getUnitPrice()+", '%')\n";
+            conditionSql += "AND  unitPrice = "+materialMerchantsModel.getUnitPrice()+"\n";
         }
         try {
             Integer page = limitShowModel.getCurPage();
             Integer size = limitShowModel.getLimit();
             List<MaterialMerchantsModel> list = materialMerchantsService.list(page,
                     size,
-                    "id",
+                    "t_materialMerchants.id",
                     "",
                     conditionSql
             );
@@ -70,16 +70,12 @@ public class MaterialMerchantsController {
      * @return Map<String,Object>
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public Map<String,Object> add(@ModelAttribute MaterialMerchantsModel materialMerchantsModel,
-                                  @ModelAttribute City city) {
+    public Map<String,Object> add(@ModelAttribute MaterialMerchantsModel materialMerchantsModel) {
 
         Map<String,Object> resultMap = new HashMap<>();
         try {
-            City cityModel = materialMerchantsService.findCity(city.getCityName());
-            if (cityModel == null){
-                resultMap.put("status", 1); // 地区不存在
-                return resultMap;
-            }
+            City cityModel = new City();
+            cityModel.setId(materialMerchantsModel.getAddressId());
             materialMerchantsModel.setAddress(cityModel);
             materialMerchantsService.add(materialMerchantsModel);
             resultMap.put("status", 1);
@@ -97,16 +93,12 @@ public class MaterialMerchantsController {
      * @return Map<String,Object>
      */
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public Map<String,Object> update(@ModelAttribute MaterialMerchantsModel materialMerchantsModel,
-                                     @ModelAttribute City city) {
+    public Map<String,Object> update(@ModelAttribute MaterialMerchantsModel materialMerchantsModel) {
 
         Map<String,Object> resultMap = new HashMap<>();
         try {
-            City cityModel = materialMerchantsService.findCity(city.getCityName());
-            if (city == null){
-                resultMap.put("status", 1); // 地区不存在
-                return resultMap;
-            }
+            City cityModel = new City();
+            cityModel.setId(materialMerchantsModel.getAddressId());
             materialMerchantsModel.setAddress(cityModel);
             materialMerchantsService.update(materialMerchantsModel);
             resultMap.put("status", 1); //添加成功

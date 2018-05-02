@@ -11,6 +11,8 @@ public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
 
     private City address = null;// 原料商地址
 
+    private Integer addressId;// 地址id
+
     private long inventory = 0;// 原料库存
 
     private double percentOfPass;// 原料合格率
@@ -18,6 +20,10 @@ public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
     private String goodsName = null;// 提供的原料名
 
     private double unitPrice;// 原料单价
+
+    public Integer getAddressId() {
+        return addressId;
+    }
 
     public String getMaterialMerchantsId(){
         return this.materialMerchantsId;
@@ -45,6 +51,10 @@ public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
 
     public double getUnitPrice(){
         return this.unitPrice;
+    }
+
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
     }
 
     public void setMaterialMerchantsId(String materialMerchantsId){
