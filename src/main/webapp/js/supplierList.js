@@ -59,17 +59,20 @@ $(function () {
 
            //向地址下拉框里面注入数据
            $.ajax({
-               type:"",
-               url:"",
+               type:"post",
+               url:"/city/findCityAll.do",
                async:true,
+               dataType: "json",
                success:function (data) {
                    var str = "";
-                   for(var i = 0;i<data.length;i++){
-                       str+='<option value="data[i].id">'+data[i].value+'</option>'
+                   str +='<option value="">'+"--请选择--"+'</option>'
+                   for(var i = 0;i<data.data.length;i++){
+                       str+='<option value='+data.data[i].id+'>'+data.data[i].cityName+'</option>'
+
                    }
                    $(".selectpickerEdit").html(str);
 
-                   $(".selectpickerEdit" ).selectpicker('refresh');
+                //   $(".selectpickerEdit" ).selectpicker('refresh');
                }
            });
 
@@ -87,22 +90,20 @@ $(function () {
            //提交
            $("#btn_submit_Edit").click(function () {
                var id = temp[0].id;
-               console.log(id);
                var nickName = $("#nickNameEdit").val();
-               var address = $(".selectpickerEdit").val();
-               console.log("test")
-               console.log(address);
+               var addressId = $(".selectpickerEdit").val();
                var inventory = $("#inventoryEdit").val();
                var percentOfPass = $("#percentOfPassEdit").val();
                var goodsName = $("#goodsNameEdit").val();
                var unitPrice = $("#unitPriceEdit").val();
+               console.info(addressId);
 
                $.ajax({
-                   type: "get",
+                   type: "put",
                    url: '/api/materialMerchants/update.do',
                    data: {
                        "nickName": nickName,
-                       /*"address": address,*/
+                       "addressId": addressId,
                        "inventory": inventory,
                        "percentOfPass": percentOfPass,
                        "goodsName": goodsName,
@@ -138,17 +139,19 @@ $(function () {
 
        //向地址下拉框里面注入数据
         $.ajax({
-            type:"",
-            url:"",
+            type:"post",
+            url:"/city/findCityAll.do",
             async:true,
+            dataType: 'json',
             success:function (data) {
                 var str = "";
-                for(var i = 0;i<data.length;i++){
-                    str+='<option>'+data[i].value+'</option>'
+                str+='<option value="">'+"--请选择--"+'</option>'
+                for(var i = 0;i<data.data.length;i++){
+                    str+='<option value='+data.data[i].id+'>'+data.data[i].cityName+'</option>'
                 }
                 $(".selectpicker").html(str);
 
-                $(".selectpicker" ).selectpicker('refresh');
+               // $(".selectpicker" ).selectpicker('refresh');
             }
         });
 
@@ -156,18 +159,19 @@ $(function () {
     });
     $("#btn_submit").click(function (){
         var nickName = $("#nickName").val();
-        var address = $("#address").val();
+        var addressId = $(".selectpicker").val();
         var inventory = $("#inventory").val();
         var percentOfPass = $("#percentOfPass").val();
         var goodsName = $("#goodsName").val();
         var unitPrice = $("#unitPrice").val();
-
+        console.log("地址Id")
+        console.log(addressId)
         $.ajax({
             type: "post",
             url: '/api/materialMerchants/add.do',
             data: {
                 "nickName": nickName,
-                "address": address,
+                "addressId": addressId,
                 "inventory": inventory,
                 "percentOfPass": percentOfPass,
                 "goodsName": goodsName,
