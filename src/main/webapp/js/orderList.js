@@ -52,8 +52,8 @@ $(function () {
             data: {
                 limit: 10,   //页面大小
                 curPage: 1,  //页码
-                userId: $("#nickName").val(),
-                findGoodsName:$("#findGoodsName").val()
+                nickName: $("#nickName").val(),
+                goodsName:$("#findGoodsName").val()
             },
             success: function(data){
                 console.log(data);
@@ -83,7 +83,6 @@ $(function () {
                     str +='<option value="">'+"--请选择--"+'</option>'
                     for(var i = 0;i<data.data.length;i++){
                         str+='<option value='+data.data[i].id+'>'+data.data[i].cityName+'</option>'
-
                     }
                     $(".selectpickerEdit").html(str);
 
@@ -104,7 +103,7 @@ $(function () {
             needAmount.val(temp[0].needAmount);
             percentOfPass.val(temp[0].percentOfPass);
             timeLimit.val(temp[0].timeLimit);
-            cityName.val(temp[0].cityName);
+            city.val(temp[0].addressId);
 
             //提交
             $("#btn_submit").click(function () {
@@ -124,7 +123,9 @@ $(function () {
                     success: function (data) {
                         console.log(data);
                         if (data.status == 1) {
+                            alert("修改成功！");
                             $("#orderDetail").modal({show: false});
+                            window.location.reload();
                         }
                         else {
                             alert("修改失败");
@@ -210,7 +211,17 @@ var TableInit = function () {
             }, {
                 field: 'cityName',
                 title: '地址'
-            } ]
+            },  {
+                field: 'tool',
+                title: '操作',
+                align: 'center',
+                formatter:function(value,row,index){
+                    var element =
+                        "<a class='edit' data-id='"+row.id +"'>选配</a> ";
+                    return element;
+                }
+            }
+            ]
         });
     };
 
@@ -219,8 +230,8 @@ var TableInit = function () {
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             limit: params.limit,   //页面大小
             curPage: params.offset+1,  //页码
-            userId: $("#userId").val(),
-            findGoodsName:$("#findGoodsName").val()
+            nickName: $("#nickName").val(),
+            goodsName:$("#findGoodsName").val()
         };
         return temp;
     };
