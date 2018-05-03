@@ -72,25 +72,25 @@
 					<fieldset>
 
 						<div class="form-group">
-							<label class="col-sm-2 control-label" for="OgoodsName">货物名</label>
+							<label class="col-sm-2 control-label" for="OgoodsName">货物名称</label>
 							<div class="col-sm-4">
 								<input style="width: 100%" class="form-control" id="OgoodsName" type="text" placeholder="货物名"/>
 							</div>
 							<label class="col-sm-2 control-label" for="OunitPrice">货物单价</label>
 							<div class="col-sm-4">
-								<input style="width: 100%" class="form-control" id="OunitPrice" type="text" placeholder="货物单价"/>
+								<input style="width: 100%" class="form-control" id="OunitPrice" type="number" placeholder="货物单价"/>
 							</div>
 						</div>
 						<div class="form-group">
 
 							<label class="col-sm-2 control-label" for="OpercentOfPass">合格率</label>
 							<div class="col-sm-4">
-								<input style="width: 100%" class="form-control" id="OpercentOfPass" type="text" placeholder="合格率"/>
+								<input style="width: 100%" class="form-control" id="OpercentOfPass" type="number" placeholder="合格率"/>
 							</div>
 
 							<label class="col-sm-2 control-label" for="OneedAmount">货物数量</label>
 							<div class="col-sm-4">
-								<input style="width: 100%" class="form-control" id="OneedAmount" type="text" placeholder="货物数量"/>
+								<input style="width: 100%" class="form-control" id="OneedAmount" type="number" placeholder="货物数量"/>
 							</div>
 
 
@@ -99,7 +99,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="OtimeLimit">到货天数</label>
 							<div class="col-sm-4">
-								<input style="width: 100%" class="form-control" id="OtimeLimit" type="text" placeholder="到货天数"/>
+								<input style="width: 100%" class="form-control" id="OtimeLimit" type="number" placeholder="到货天数"/>
 							</div>
 
 							<label class="col-sm-2 control-label">城市地址</label>
@@ -115,7 +115,7 @@
 			    		<div class="form-group">
 							<label class="col-sm-2 control-label" for="timeLimit">备注信息</label>
 							<div class="col-sm-10">
-								<textarea name="" id="" cols="30" rows="10" placeholder="备注信息"></textarea>
+								<textarea name="" class="form-control" id="" cols="30" rows="10" placeholder="备注信息"></textarea>
 							</div>
 						</div>
 						
@@ -154,6 +154,9 @@
 <!-- here stars scrolling icon -->
 	<script type="text/javascript">
 		$(document).ready(function() {
+
+
+
 
             $.ajax({
                 type:"post",
@@ -194,6 +197,11 @@
 
 		//发送订单
 		$("#sendIt").click(function (){
+
+            var storage=window.localStorage;
+            var userId = storage["id"];
+			console.log(userId);
+
 		    var goodsName = $("#OgoodsName").val();
 		    var unitPrice = $("#OunitPrice").val();
 		    var needAmount = $("#OneedAmount").val();
@@ -201,34 +209,44 @@
 		    var percentOfPass = $("#OpercentOfPass").val();
 		    var addressId = $("#addressSelect").val();
 
-		    $.ajax({
-				type: "post",
-				url: "/api/order/add.do",
-				data: {
+		    if(goodsName != null && goodsName != "" && unitPrice != null && unitPrice != "" && needAmount != null && needAmount != "" && timeLimit != null && timeLimit != ""&& percentOfPass != null && percentOfPass != "" && addressId !=null && addressId != ""){
 
-				    "goodsName": goodsName,
-					"unitPrice": unitPrice,
-					"needAmount": needAmount,
-					"timeLimit": timeLimit,
-					"percentOfPass": percentOfPass,
-					"addressId": addressId
-                },
-				dataType: 'json',
-                success: function (data) {
-                    if(data.status==1) {
-                        alert("下单成功");
-                        window.location.href="";
-                    }
-                    else{
+		        $.ajax({
+                    type: "post",
+                    url: "/api/order/add.do",
+                    data: {
+
+                        "goodsName": goodsName,
+                        "unitPrice": unitPrice,
+                        "needAmount": needAmount,
+                        "timeLimit": timeLimit,
+                        "percentOfPass": percentOfPass,
+                        "addressId": addressId,
+						"userId": userId
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data.status==1) {
+                            alert("下单成功");
+                            window.location.href="orderPlace.html";
+                        }
+                        else{
+                            alert("下单失败");
+                            window.location.href="orderPlace.html";
+                        }
+                    },
+                    error: function () {
                         alert("下单失败");
-                        window.location.href="";
+                        window.location.href="orderPlace.html";
                     }
-                },
-                error: function () {
-                    alert("下单失败");
-                    window.location.href="";
-                }
-			});
+                });
+			}
+			else{
+		        alert("下单失败\n请填写完整订单信息！！！");
+                window.location.href="orderPlace.html";
+			}
+
+
 		});
 
 
