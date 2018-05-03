@@ -8,6 +8,9 @@ $(function () {
     var oButtonInit = new ButtonInit();
     oButtonInit.Init();
 
+    //读取local
+    var storage=window.localStorage;
+
     //删除
     $("#btn_delete").click(function (){
         var temp= $("#orderTable").bootstrapTable('getSelections');
@@ -94,7 +97,7 @@ $(function () {
             var needAmount = $("#needAmount");
             var percentOfPass = $("#percentOfPass");
             var timeLimit = $("#timeLimit");
-            var cityName = $("#cityName");
+            var city = $(".selectpickerEdit");
 
             goodsName.val(temp[0].goodsName);
             unitPrice.val(temp[0].unitPrice);
@@ -109,12 +112,13 @@ $(function () {
                     type: "put",
                     url: '/api/order/update.do',
                     data: {
+                        "userId":storage["id"],
                         "goodsName": goodsName.val(),
                         "unitPrice": unitPrice.val(),
                         "needAmount": needAmount.val(),
                         "percentOfPass": percentOfPass.val(),
                         "timeLimit": timeLimit.val(),
-                        "cityName": cityName.val()
+                        "addressId":  city.val()
                     },
                     dataType: "json",
                     success: function (data) {
