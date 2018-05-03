@@ -15,14 +15,19 @@ public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
 
     private long inventory = 0;// 原料库存
 
+    private String city_name;
+
     private double percentOfPass;// 原料合格率
 
     private String goodsName = null;// 提供的原料名
 
     private double unitPrice;// 原料单价
 
+    public String getCity_name(){
+        return this.city_name;
+    }
     public Integer getAddressId() {
-        return addressId;
+        return this.addressId;
     }
 
     public String getMaterialMerchantsId(){
@@ -63,6 +68,10 @@ public class MaterialMerchantsModel extends BaseModel<MaterialMerchantsModel> {
 
     public void setNickName(String nickName){
         this.nickName = nickName;
+    }
+
+    public  void setCity_name(String city_name){
+        this.city_name = city_name;
     }
 
     public  void setAddress(City address){

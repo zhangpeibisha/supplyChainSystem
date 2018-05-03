@@ -47,6 +47,7 @@ $(function () {
             });
         }
     });
+
     //编辑弹框出现
     $("#btn_edit").click(function(){
        var temp= $("#supplierTable").bootstrapTable('getSelections');
@@ -96,35 +97,43 @@ $(function () {
                var percentOfPass = $("#percentOfPassEdit").val();
                var goodsName = $("#goodsNameEdit").val();
                var unitPrice = $("#unitPriceEdit").val();
-               console.info(addressId);
 
-               $.ajax({
-                   type: "put",
-                   url: '/api/materialMerchants/update.do',
-                   data: {
-                       "nickName": nickName,
-                       "addressId": addressId,
-                       "inventory": inventory,
-                       "percentOfPass": percentOfPass,
-                       "goodsName": goodsName,
-                       "unitPrice": unitPrice
-                   },
-                   dataType: "json",
-                   success: function (data) {
-                       if (data.status == 1) {
-                           alert("修改成功");
-                           $("#supplierEdit").modal({show: false});
-                       }
-                       else {
+               if(unitPrice != null && unitPrice != "" && goodsName != null && goodsName != "" && percentOfPass != null && percentOfPass != "" && nickName != null && nickName != "" && addressId != null && addressId != "" && inventory != null && inventory != ""){
+                   $.ajax({
+                       type: "put",
+                       url: '/api/materialMerchants/update.do',
+                       data: {
+                           "nickName": nickName,
+                           "addressId": addressId,
+                           "inventory": inventory,
+                           "percentOfPass": percentOfPass,
+                           "goodsName": goodsName,
+                           "unitPrice": unitPrice,
+                           "id": id
+                       },
+                       dataType: "json",
+                       success: function (data) {
+                           if (data.status == 1) {
+                               alert("修改成功");
+                               $("#supplierEdit").modal({show: false});
+                               window.location.href="supplierList.html";
+                           }
+                           else {
+                               alert("修改失败");
+                               $("#supplierEdit").modal({show: false});
+                               window.location.href="supplierList.html";
+                           }
+                       },
+                       error: function () {
                            alert("修改失败");
                            $("#supplierEdit").modal({show: false});
+                           window.location.href="supplierList.html";
                        }
-                   },
-                   error: function () {
-                       alert("修改失败");
-                       $("#supplierEdit").modal({show: false});
-                   }
-               });
+                   });
+               }
+                else{
+                   alert("修改失败\n请输入完整信息！！")
+               }
 
            });
        }else{
@@ -164,38 +173,42 @@ $(function () {
         var percentOfPass = $("#percentOfPass").val();
         var goodsName = $("#goodsName").val();
         var unitPrice = $("#unitPrice").val();
-        console.log("地址Id")
-        console.log(addressId)
-        $.ajax({
-            type: "post",
-            url: '/api/materialMerchants/add.do',
-            data: {
-                "nickName": nickName,
-                "addressId": addressId,
-                "inventory": inventory,
-                "percentOfPass": percentOfPass,
-                "goodsName": goodsName,
-                "unitPrice": unitPrice
-            },
-            dataType: "json",
-            success: function (data) {
-                if(data.status==1) {
-                    alert("新增成功");
-                    $("#supplierAdd").modal({show:false});
-                    window.location.href="supplierList.html";
-                }
-                else{
+
+        if(unitPrice != null && unitPrice != "" && goodsName != null && goodsName != "" && percentOfPass != null && percentOfPass != "" && nickName != null && nickName != "" && addressId != null && addressId != "" && inventory != null && inventory != ""){
+            $.ajax({
+                type: "post",
+                url: '/api/materialMerchants/add.do',
+                data: {
+                    "nickName": nickName,
+                    "addressId": addressId,
+                    "inventory": inventory,
+                    "percentOfPass": percentOfPass,
+                    "goodsName": goodsName,
+                    "unitPrice": unitPrice
+                },
+                dataType: "json",
+                success: function (data) {
+                    if(data.status==1) {
+                        alert("新增成功");
+                        $("#supplierAdd").modal({show:false});
+                        window.location.href="supplierList.html";
+                    }
+                    else{
+                        alert("新增失败");
+                        $("#supplierAdd").modal({show:false});
+                        window.location.href="supplierList.html";
+                    }
+                },
+                error: function () {
                     alert("新增失败");
                     $("#supplierAdd").modal({show:false});
                     window.location.href="supplierList.html";
                 }
-            },
-            error: function () {
-                alert("新增失败");
-                $("#supplierAdd").modal({show:false});
-                window.location.href="supplierList.html";
-            }
-        });
+            });
+        }
+        else {
+            alert("新增失败\n请输入完整信息！！")
+        }
 
     });
 
@@ -232,12 +245,14 @@ var TableInit = function () {
             cardView: false,                    //是否显示详细视图
             detailView: false,                   //是否显示父子表
             onLoadSuccess: function(backDate) {
+
                 $('#supplierTable').bootstrapTable('removeAll');
-                console.log(backDate.list);
+
                 this.data=backDate.list;
+
                 $('#supplierTable').bootstrapTable('load',backDate.list);
             },
-            data:[],
+            data: [],
             columns: [{
                 checkbox: true
             }, {
@@ -258,7 +273,7 @@ var TableInit = function () {
                 field: 'inventory',
                 title: '库存量'
             }, {
-                field: 'address',
+                field: 'city_name',
                 title: '地址'
             }, {
                 field: 'percentOfPass',
@@ -269,6 +284,7 @@ var TableInit = function () {
     //查询
     $("#btn_query").click(function (){
         console.log($("#Name").val());
+
         $.ajax({
             type: 'get',
             url: "/api/materialMerchants/get.do",
@@ -277,13 +293,10 @@ var TableInit = function () {
                 goodsName: $("#Name").val()
             },
             success: function(data){
-                console.log("查询")
-                console.log("serachResult:"+data.list);
-               // $('#supplierTable').bootstrapTable('removeAll');
 
-                this.data=data.list ;
-               // console.log(this.data)
-                $('#supplierTable').bootstrapTable('load',data.list);
+                $('#supplierTable').bootstrapTable('removeAll');
+
+                $('#supplierTable').bootstrapTable('append',data.list);
             },
         })
     });
@@ -291,13 +304,13 @@ var TableInit = function () {
     //得到查询的参数
     oTableInit.queryParams = function (params) {
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-            limit: params.limit,   //页面大小
-            offset: params.offset,  //页码
-            nickName: $("#Name").val(),  //名称
+            /*limit: params.limit,   //页面大小
+            offset: params.offset,*/  //页码
+            goodsName: $("#Name").val(),  //名称
            /* departmentname: $("#txt_search_departmentname").val(),
             statu: $("#txt_search_statu").val()*/
         };
-        console.log("here:"+temp.nickName);
+        console.log("here:"+temp.goodsName);
         return temp;
     };
     return oTableInit;
