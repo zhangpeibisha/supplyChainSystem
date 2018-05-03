@@ -2,6 +2,7 @@ package org.nix.model;
 
 import org.nix.common.enums.RoleEnum;
 import org.nix.model.base.BaseModel;
+import org.nix.model.city.City;
 
 /**
  * @author Kiss
@@ -13,6 +14,7 @@ public class UserModel extends BaseModel<UserModel> {
     private String userName;
     private String phone;
     private RoleModel roleModel;
+    private City address;
 
     public String getNickName() {
         return nickName;
@@ -54,6 +56,14 @@ public class UserModel extends BaseModel<UserModel> {
         this.roleModel = roleModel;
     }
 
+    public City getAddress() {
+        return address;
+    }
+
+    public void setAddress(City address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "UserModel{" +
@@ -62,6 +72,7 @@ public class UserModel extends BaseModel<UserModel> {
                 ", userName='" + userName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", roleModel=" + roleModel +
+                ", address=" + address +
                 ", id=" + id +
                 ", createTime=" + createTime +
                 '}';
