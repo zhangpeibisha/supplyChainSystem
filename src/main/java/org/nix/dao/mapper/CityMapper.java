@@ -2,12 +2,14 @@ package org.nix.dao.mapper;
 
 import org.nix.model.city.City;
 import org.nix.model.city.Distance;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Create by zhangpe0312@qq.com on 2018/4/28.
  */
+@Transactional(rollbackFor = Exception.class)
 public interface CityMapper {
 
     /**

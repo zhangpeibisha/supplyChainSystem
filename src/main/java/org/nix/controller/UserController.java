@@ -3,7 +3,11 @@ package org.nix.controller;
 import org.nix.annotation.Authority;
 import org.nix.common.enums.RoleEnum;
 import org.nix.common.enums.SessionHelper;
+import org.nix.dao.mapper.CityMapper;
+import org.nix.dao.mapper.RoleMapper;
+import org.nix.model.RoleModel;
 import org.nix.model.UserModel;
+import org.nix.model.city.City;
 import org.nix.service.imp.UserService;
 import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +28,19 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private CityMapper cityMapper;
+    @Autowired
+    private RoleMapper roleMapper;
 
     @RequestMapping(value = "/registered")
-    public Map<String,Object> registered(@ModelAttribute UserModel userModel) {
+    public Map<String,Object> registered(@ModelAttribute UserModel userModel,
+                                         @RequestParam("cityName")String cityName) {
         Map<String,Object> resultMap = new HashMap<>();
         try {
+            City city = cityMapper.findCityByName(cityName);
+            userModel.setAddress(city);
+            userModel.setRoleModel(roleMapper.selectRoleByName(RoleEnum.ROLE_USER.getRoleName()));
             userService.add(userModel);
             resultMap.put("code",1);
             userModel.setPassWord("");
