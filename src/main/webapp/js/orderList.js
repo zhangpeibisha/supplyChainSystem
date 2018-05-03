@@ -49,7 +49,7 @@ $(function () {
             data: {
                 limit: 10,   //页面大小
                 curPage: 1,  //页码
-                userId: $("#userId").val(),
+                userId: $("#nickName").val(),
                 findGoodsName:$("#findGoodsName").val()
             },
             success: function(data){
@@ -181,11 +181,11 @@ var TableInit = function () {
             }, {
                 field: 'id',
                 title: '订单编号'
-            }, /*{
+            }, {
                 field: 'userId',
                 title: '用户编号',
                 visible:false
-            },*/ {
+            }, {
                 field: 'nickName',
                 title: '用户名'
             },{

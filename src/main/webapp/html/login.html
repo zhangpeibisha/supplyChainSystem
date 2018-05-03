@@ -43,9 +43,14 @@
                     success: function (data) {
                         console.log(data);
                         if(data.code == "1"){
-
                             storage["id"]=data.user.id;
-                            window.location.href="index.html";
+                            switch (data.user.roleModel.id) {
+                                case 1 :window.location.href="index.html";break;
+                                case 2 :break;
+                                case 3 : window.location.href="userIndex.html";break;
+
+                            }
+
                         }
                         else{
                             alert("登录失败");
