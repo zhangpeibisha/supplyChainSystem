@@ -68,9 +68,12 @@
             (
             #{item.id},
             #{item.createTime},
-            #{item.cityName}
+            #{item.fromCity.id},
+            #{item.toCity.id},
+            #{item.distance}
             )
         </foreach>
     </insert>
+
 
 </mapper>
