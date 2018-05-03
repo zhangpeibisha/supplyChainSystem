@@ -7,7 +7,11 @@
         <result column="passWord" property="passWord" jdbcType="VARCHAR"/>
         <result column="userName" property="userName" jdbcType="VARCHAR"/>
         <result column="phone" property="phone" jdbcType="VARCHAR"/>
-        <association property="roleModel" column="role" javaType="org.nix.model.RoleModel" select="org.nix.dao.mapper.RoleMapper.selectRoleLazy"/>
+        <association property="roleModel" column="role" javaType="org.nix.model.RoleModel"
+                     select="org.nix.dao.mapper.RoleMapper.selectRoleLazy"/>
+        <!--一个用户只有一个地址-->
+        <association property="address" column="address" javaType="org.nix.model.city.City"
+                     select="org.nix.dao.mapper.RoleMapper.selectRoleLazy"/>
     </resultMap>
     <insert id="insert" parameterType="org.nix.model.UserModel">
         insert into `t_user`
@@ -27,6 +31,12 @@
             <if test="phone != null">
                 `phone`,
             </if>
+            <if test="roleModel != null">
+                `role`,
+            </if>
+            <if test="address != null">
+                `address`,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -43,6 +53,12 @@
             </if>
             <if test="phone != null">
                 #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="roleModel != null">
+                #{roleModel.id,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                #{address.id,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -64,6 +80,18 @@
             </if>
             <if test="phone != null">
                 `phone` = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="roleModel != null">
+                `role`,
+            </if>
+            <if test="address != null">
+                `address`,
+            </if>
+            <if test="roleModel != null">
+                #{roleModel.id,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                #{address.id,jdbcType=INTEGER},
             </if>
         </trim>
         where id = #{id,jdbcType=INTEGER}
