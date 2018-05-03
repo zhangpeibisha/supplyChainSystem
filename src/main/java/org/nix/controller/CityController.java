@@ -5,6 +5,7 @@ import org.nix.common.enums.RoleEnum;
 import org.nix.service.imp.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +16,7 @@ import java.util.Map;
  * Create by zhangpe0312@qq.com on 2018/5/2.
  */
 @RestController
+@RequestMapping("/city")
 public class CityController {
 
     @Autowired
