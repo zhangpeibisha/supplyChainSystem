@@ -35,10 +35,10 @@ public class UserController {
 
     @RequestMapping(value = "/registered")
     public Map<String,Object> registered(@ModelAttribute UserModel userModel,
-                                         @RequestParam("cityName")String cityName) {
+                                         @RequestParam("addressId")int addressId) {
         Map<String,Object> resultMap = new HashMap<>();
         try {
-            City city = cityMapper.findCityByName(cityName);
+            City city = cityMapper.findCityById(addressId);
             userModel.setAddress(city);
             userModel.setRoleModel(roleMapper.selectRoleByName(RoleEnum.ROLE_USER.getRoleName()));
             userService.add(userModel);
