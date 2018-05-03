@@ -125,7 +125,9 @@
 
     <!--根据id获取原料商的具体信息-->
     <select id="select" resultMap="BaseResultMap">
-        selectselect *,t_city.id as addressId
+        select t_materialMerchants.*,
+                t_city.id as addressId,
+                t_city.city_name
         from
           `t_materialMerchants`,
            t_city
@@ -136,7 +138,9 @@
 
     <!--根据条件查找数据-->
     <select id="list" resultMap="BaseResultMap">
-        select *,t_city.id as addressId
+        select t_materialMerchants.*,
+                t_city.id as addressId,
+                t_city.city_name
         from
           `t_materialMerchants`,
            t_city
