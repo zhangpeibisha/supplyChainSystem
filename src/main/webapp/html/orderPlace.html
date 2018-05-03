@@ -58,21 +58,81 @@
 		</div>
 <!-- //header -->
 <!-- single -->
+        <div style="color:white">
+
+		</div>
 	<div class="single">
 		<div class="clearfix"> </div>
 		<div class="three-com">
 			<div class="leave-comment">
 				<h3>确定订单</h3>
 				<p>向厂家提出订单需求，以获得产品</p>
-				<form>
-					<input type="text" placeholder="Name" required=" ">
-					<input type="text" placeholder="Email" required=" ">
-					<input type="text" placeholder="Your Website" required=" ">
-					<textarea placeholder="Message" required></textarea>
-					<input type="submit" value="发送订单">
-					<div class="clearfix"> </div>
+
+				<form class="form-horizontal" role="form">
+					<fieldset>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="OgoodsName">货物名</label>
+							<div class="col-sm-4">
+								<input style="width: 100%" class="form-control" id="OgoodsName" type="text" placeholder="货物名"/>
+							</div>
+							<label class="col-sm-2 control-label" for="OunitPrice">货物单价</label>
+							<div class="col-sm-4">
+								<input style="width: 100%" class="form-control" id="OunitPrice" type="text" placeholder="货物单价"/>
+							</div>
+						</div>
+						<div class="form-group">
+
+							<label class="col-sm-2 control-label" for="OpercentOfPass">合格率</label>
+							<div class="col-sm-4">
+								<input style="width: 100%" class="form-control" id="OpercentOfPass" type="text" placeholder="合格率"/>
+							</div>
+
+							<label class="col-sm-2 control-label" for="OneedAmount">货物数量</label>
+							<div class="col-sm-4">
+								<input style="width: 100%" class="form-control" id="OneedAmount" type="text" placeholder="货物数量"/>
+							</div>
+
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="OtimeLimit">到货天数</label>
+							<div class="col-sm-4">
+								<input style="width: 100%" class="form-control" id="OtimeLimit" type="text" placeholder="到货天数"/>
+							</div>
+
+							<label class="col-sm-2 control-label">城市地址</label>
+							<div class="col-sm-4">
+								<select id="addressSelect" class="form-control">
+									
+								</select>
+							</div>
+
+						</div>
+						
+						
+			    		<div class="form-group">
+							<label class="col-sm-2 control-label" for="timeLimit">备注信息</label>
+							<div class="col-sm-10">
+								<textarea name="" id="" cols="30" rows="10" placeholder="备注信息"></textarea>
+							</div>
+						</div>
+						
+						
+					</fieldset>
+					
+
 				</form>
+
+
+
+
+				<input type="submit" value="发送订单" id="sendIt">
+				<div class="clearfix"> </div>
+
 			</div>
+		</div>
 	</div>
 <!-- single -->
 <!-- footer -->
@@ -94,6 +154,31 @@
 <!-- here stars scrolling icon -->
 	<script type="text/javascript">
 		$(document).ready(function() {
+
+            $.ajax({
+                type:"post",
+                url:"/city/findCityAll.do",
+                async:true,
+                dataType: 'json',
+                success:function (data) {
+                    var str = "";
+                    str+='<option value="">'+"--请选择--"+'</option>'
+                    for(var i = 0;i<data.data.length;i++){
+                        str+='<option value='+data.data[i].id+'>'+data.data[i].cityName+'</option>'
+                    }
+                    $("#addressSelect").html(str);
+
+                    // $(".selectpicker" ).selectpicker('refresh');
+                }
+            });
+
+
+
+
+
+
+
+
 			/*
 			var defaults = {
 				containerID: 'toTop', // fading element id
@@ -106,6 +191,49 @@
 			$().UItoTop({ easingType: 'easeOutQuart' });
 
 		});
+
+		//发送订单
+		$("#sendIt").click(function (){
+		    var goodsName = $("#OgoodsName").val();
+		    var unitPrice = $("#OunitPrice").val();
+		    var needAmount = $("#OneedAmount").val();
+		    var timeLimit = $("#OtimeLimit").val();
+		    var percentOfPass = $("#OpercentOfPass").val();
+		    var addressId = $("#addressSelect").val();
+
+		    $.ajax({
+				type: "post",
+				url: "/api/order/add.do",
+				data: {
+
+				    "goodsName": goodsName,
+					"unitPrice": unitPrice,
+					"needAmount": needAmount,
+					"timeLimit": timeLimit,
+					"percentOfPass": percentOfPass,
+					"addressId": addressId
+                },
+				dataType: 'json',
+                success: function (data) {
+                    if(data.status==1) {
+                        alert("下单成功");
+                        window.location.href="";
+                    }
+                    else{
+                        alert("下单失败");
+                        window.location.href="";
+                    }
+                },
+                error: function () {
+                    alert("下单失败");
+                    window.location.href="";
+                }
+			});
+		});
+
+
+
+
 	</script>
 <!-- //here ends scrolling icon -->
 </body>
