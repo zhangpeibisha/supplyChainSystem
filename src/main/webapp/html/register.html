@@ -15,7 +15,9 @@
                 <input type="text" placeholder="用户名" id="user_name"/>
                 <input type="text" placeholder="真实姓名" id="real_name"/>
                 <input type="text" placeholder="电话号码" id="phone_number"/>
-                <input type="text" placeholder="地址" id="address"/>
+                <select class="selectItAddress">
+                    <option value="">--请选择地址--</option>
+                </select>
                 <input type="password" placeholder="密码" id="password"/>
                 <input type="password" placeholder="再次输入密码" id="againPass"/>
 
@@ -30,15 +32,36 @@
 
     var registerUrl = "/user/registered.do";
     $(document).ready(function () {
+
+        //向地址下拉框里面注入数据
+        $.ajax({
+            type:"post",
+            url:"/city/findCityAll.do",
+            async:true,
+            dataType: "json",
+            success:function (data) {
+                var str = "";
+                str +='<option value="">'+"--请选择地址--"+'</option>'
+                for(var i = 0;i<data.data.length;i++){
+                    str+='<option value='+data.data[i].id+'>'+data.data[i].cityName+'</option>'
+
+                }
+                $(".selectItAddress").html(str);
+
+                //   $(".selectpickerEdit" ).selectpicker('refresh');
+            }
+        });
+
         $("#reg").click(function () {
             var name = $("#user_name").val();
             var passWord = $("#password").val();
             var againPass = $("#againPass").val();
             var relname = $("#real_name").val();
             var phoneNum = $("#phone_number").val();
-            var address = $("#address").val();
+            var addressId = $(".selectItAddress").val();
+            console.log(addressId)
             if(passWord == againPass){
-                if(name != null && passWord != null){
+                if(name != null && passWord != null && name != "" && passWord != "" && relname != null && relname != "" && phoneNum != null && phoneNum != "" && addressId!=null && addressId!=""){
                     $.ajax({
                         type: "post",
                         url: registerUrl,
@@ -46,8 +69,8 @@
                             "nickName": name,
                             "passWord": passWord,
                             "userName": relname,
-                            "address": address,
-                            "phone": phoneNum
+                            "phone": phoneNum,
+                            "addressId": addressId
                         },
                         dataType: "json",
                         success: function (data) {
@@ -66,7 +89,7 @@
                     });
                 }
                 else {
-                    alert("用户名或密码不能为空")
+                    alert("请填写完个人信息！！")
                 }
             }
             else{
