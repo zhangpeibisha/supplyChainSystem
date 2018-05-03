@@ -8,12 +8,6 @@ $(function () {
     var oButtonInit = new ButtonInit();
     oButtonInit.Init();
 
-    //提交
-    $("#btn_submit").click(function () {
-        alert("提交成功！");
-    });
-
-
     //删除
     $("#btn_delete").click(function (){
         var temp= $("#orderTable").bootstrapTable('getSelections');
@@ -48,23 +42,21 @@ $(function () {
 
     //查询
     $("#btn_query").click(function (){
-
-        console.log($("#nickName").val());
-        console.log($("#findGoodsName").val());
         $.ajax({
             type: 'get',
             url: "/api/order/get.do",
             dataType: 'json',
             data: {
-                id: $("#nickName").val(),
-                goodsName:$("#findGoodsName").val()
+                limit: 10,   //页面大小
+                curPage: 1,  //页码
+                userId: $("#userId").val(),
+                findGoodsName:$("#findGoodsName").val()
             },
             success: function(data){
                 console.log(data);
+                $('#orderTable').bootstrapTable('removeAll');
+                $('#orderTable').bootstrapTable('append', data.list);
 
-                this.data=data.list ;
-
-                $('#orderTable').bootstrapTable('load',data.list);
             }
         })
     });
@@ -114,7 +106,7 @@ $(function () {
             //提交
             $("#btn_submit").click(function () {
                 $.ajax({
-                    type: "get",
+                    type: "put",
                     url: '/api/order/update.do',
                     data: {
                         "goodsName": goodsName.val(),
@@ -126,6 +118,7 @@ $(function () {
                     },
                     dataType: "json",
                     success: function (data) {
+                        console.log(data);
                         if (data.status == 1) {
                             $("#orderDetail").modal({show: false});
                         }
@@ -217,13 +210,12 @@ var TableInit = function () {
         });
     };
 
-
     //得到查询的参数
     oTableInit.queryParams = function (params) {
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             limit: params.limit,   //页面大小
             curPage: params.offset+1,  //页码
-            nickName: $("#nickName").val(),
+            userId: $("#userId").val(),
             findGoodsName:$("#findGoodsName").val()
         };
         return temp;
