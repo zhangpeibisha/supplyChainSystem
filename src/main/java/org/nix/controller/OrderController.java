@@ -38,10 +38,10 @@ public class OrderController {
         // Sql条件查询语句
         String conditionSql =  "t_o.userId = t_u.id AND\nt_o.addressId = t_c.id ";
         if (orderModel.getNickName() != null){
-            conditionSql += "AND  goodsName = ('%', \""+orderModel.getNickName()+"\", '%')\n";
+            conditionSql += "AND  nickName like CONCAT ('%', \""+orderModel.getNickName()+"\", '%')\n";
         }
         if (orderModel.getGoodsName() != null){
-            conditionSql += "AND  inventory like CONCAT('%', \""+orderModel.getGoodsName()+"\", '%')\n";
+            conditionSql += "AND  goodsName like CONCAT('%', \""+orderModel.getGoodsName()+"\", '%')\n";
         }
         if(orderModel.getUnitPrice() != 0) {
             conditionSql += "AND  unitPrice = "+orderModel.getUnitPrice()+"\n";
@@ -58,11 +58,10 @@ public class OrderController {
             long rows = orderService.getCounts(orderModel);
             resultMap.put("list", list);
             resultMap.put("total", rows);
-            resultMap.put("rows", rows);
 
         }catch (Exception e) {
             resultMap.put("list", -1);
-            resultMap.put("rows", -1);
+            resultMap.put("total", -1);
             e.printStackTrace();
         }
         return resultMap;
@@ -81,7 +80,6 @@ public class OrderController {
         try {
             /**获取并验证用户是否存在**/
             if (orderModel.getUserId() == null || orderModel.getUserId() == 0){
-                System.out.println("............."+orderModel.getNickName());
                 Integer userId = orderService.findUserId(orderModel.getNickName());
                 if (userId == null || userId == 0){
                     resultMap.put("status", 2);// 用户不存在
@@ -110,14 +108,6 @@ public class OrderController {
 
         Map<String,Object> resultMap = new HashMap<>();
         try {
-            /**获取并验证用户是否存在**/
-                Integer userId = orderService.findUserId(orderModel.getNickName());
-                if (userId == null || userId == 0){
-                    resultMap.put("status", 2);// 用户不存在
-                    return resultMap;
-                }
-                orderModel.setUserId(userId);
-
             orderService.update(orderModel);
             resultMap.put("status", 1);
         }catch (Exception e) {
