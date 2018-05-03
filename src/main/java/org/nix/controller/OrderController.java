@@ -36,7 +36,7 @@ public class OrderController {
         Map<String,Object> resultMap = new HashMap<>();
 
         // Sql条件查询语句
-        String conditionSql =  "t_o.userId = t_u.id AND\nt_o.addressId = t_c.id";
+        String conditionSql =  "t_o.userId = t_u.id AND\nt_o.addressId = t_c.id ";
         if (orderModel.getNickName() != null){
             conditionSql += "AND  goodsName = ('%', \""+orderModel.getNickName()+"\", '%')\n";
         }
@@ -57,6 +57,7 @@ public class OrderController {
             );
             long rows = orderService.getCounts(orderModel);
             resultMap.put("list", list);
+            resultMap.put("total", rows);
             resultMap.put("rows", rows);
 
         }catch (Exception e) {

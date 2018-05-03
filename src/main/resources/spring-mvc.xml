@@ -24,9 +24,9 @@
     </mvc:annotation-driven>
 
     <!--注册拦截器-->
-    <mvc:interceptors>
+<!--    <mvc:interceptors>
         <bean class="org.nix.common.Interceptors.AuthorityInterceptor"/>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
 
     <!-- 定义跳转的文件的前后缀 ，视图模式配置-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

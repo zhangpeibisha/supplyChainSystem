@@ -78,9 +78,9 @@
 				<div class="panel-body">
 					<form id="formSearch" class="form-horizontal">
 						<div class="form-group" style="margin-top:15px">
-							<label class="control-label col-sm-1" for="orderId">订单编号</label>
+							<label class="control-label col-sm-1" for="nickName">用户名</label>
 							<div class="col-sm-3">
-								<input type="text" class="form-control" id="orderId">
+								<input type="text" class="form-control" id="nickName">
 							</div>
 							<label class="control-label col-sm-1" for="findGoodsName">货物名称</label>
 							<div class="col-sm-3">
@@ -158,29 +158,33 @@
 					<input type="text" name="goodsName" data-bind="value:goodsName" class="form-control" id="goodsName" placeholder="货物名">
 				</div>
 				<div class="form-group">
-					<label for="unitPrice">货物单价</label>
+					<label for="unitPrice">货物单价(元)</label>
 					<input type="text" name="unitPrice" data-bind="value:unitPrice" class="form-control" id="unitPrice" placeholder="货物单价">
 				</div>
 				<div class="form-group">
-					<label for="needAmount">货物数量</label>
+					<label for="needAmount">货物数量(个)</label>
 					<input type="text" name="needAmount" data-bind="value:needAmount" class="form-control" id="needAmount" placeholder="货物数量">
 				</div>
 				<div class="form-group">
-					<label for="percentOfPass">合格率</label>
+					<label for="percentOfPass">合格率(%)</label>
 					<input type="text" name="percentOfPass" data-bind="value:percentOfPass" class="form-control" id="percentOfPass" placeholder="合格率">
 				</div>
 				<div class="form-group">
-					<label for="timeLimit">到货天数</label>
+					<label for="timeLimit">到货天数(天)</label>
 					<input type="text" name="timeLimit" data-bind="value:timeLimit" class="form-control" id="timeLimit" placeholder="到货天数">
 				</div>
-				<div class="form-group">
-					<label for="Address">地址</label>
+			<!--	<div class="form-group">
+					<label>地址</label>
 					<input type="text" name="Address" data-bind="value:Address" class="form-control" id="Address" placeholder="地址">
-				</div>
+				</div>-->
 				<div class="form-group">
-					<label for="QualificationRate">原料合格率</label>
-					<input type="text" name="QualificationRate" data-bind="value:Des" class="form-control" id="QualificationRate" placeholder="原料合格率">
+					<label>地址</label><br>
+					<select class="selectpickerEdit">
+
+					</select>
+					<!--<input type="text" name="address" data-bind="value:address" class="form-control" id="addressEdit" placeholder="原料商地址">-->
 				</div>
+
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
