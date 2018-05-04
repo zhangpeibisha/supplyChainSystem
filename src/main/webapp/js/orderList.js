@@ -43,9 +43,10 @@ $(function () {
         }
     });
 
-/*    //查询
+    //查询
     $("#btn_query").click(function (){
-        $.ajax({
+        oTable.Init();
+       /* $.ajax({
             type: 'get',
             url: "/api/order/get.do",
             dataType: 'json',
@@ -61,8 +62,8 @@ $(function () {
                 $('#orderTable').bootstrapTable('append', data.list);
 
             }
-        })
-    });*/
+        })*/
+    });
 
     //修改
     $("#btn_edit").click(function(){
@@ -156,6 +157,8 @@ var TableInit = function () {
     var oTableInit = new Object();
     //初始化Table
     oTableInit.Init = function () {
+        console.log("加载");
+
         $('#orderTable').bootstrapTable({
             url: '/api/order/get.do',         //请求后台的URL（*）
             method: 'get',                      //请求方式（*）
@@ -182,7 +185,6 @@ var TableInit = function () {
             cardView: false,                    //是否显示详细视图
             detailView: false,                   //是否显示父子表
             responseHandler: function(result) {
-                console.log(result)
                 return {
                     //总页数,前面的key必须为"total"
                     total : result.total,
@@ -258,8 +260,6 @@ var ButtonInit = function () {
 
     oInit.Init = function () {
         //初始化页面上面的按钮事件
-
-
     };
 
     return oInit;

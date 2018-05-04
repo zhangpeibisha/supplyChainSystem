@@ -1,5 +1,6 @@
 package org.nix.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import org.nix.common.enums.RoleEnum;
 import org.nix.model.base.BaseModel;
 import org.nix.model.city.City;
@@ -48,6 +49,7 @@ public class UserModel extends BaseModel<UserModel> {
         this.phone = phone;
     }
 
+    @JSONField(serialize = false)
     public RoleModel getRoleModel() {
         return roleModel;
     }
@@ -56,6 +58,7 @@ public class UserModel extends BaseModel<UserModel> {
         this.roleModel = roleModel;
     }
 
+    @JSONField(serialize = false)
     public City getAddress() {
         return address;
     }

@@ -3,7 +3,7 @@
 <mapper namespace="org.nix.dao.mapper.RoleMapper">
     <resultMap id="BaseResultMap" type="org.nix.model.RoleModel">
         <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="roleName" property="roleName" jdbcType="VARCHAR"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
         <result column="msg" property="msg" jdbcType="VARCHAR"/>
     </resultMap>
     <insert id="insert" parameterType="org.nix.model.RoleModel">
