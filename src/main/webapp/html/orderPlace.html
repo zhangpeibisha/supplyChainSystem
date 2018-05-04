@@ -4,7 +4,8 @@
 <title>Single</title>
 <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="../resource/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<!-- js -->
+<link href="../css/orderList.css" rel="stylesheet" type="text/css" media="all"/>
+	<!-- js -->
 <script src="../resource/js/jquery.min.js"></script>
     <!-- //js -->
 <!-- for-mobile-apps -->
@@ -74,21 +75,21 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="OgoodsName">货物名称</label>
 							<div class="col-sm-4">
-								<input style="width: 100%" class="form-control" id="OgoodsName" type="text" placeholder="货物名"/>
+								<input style="width: 100% " class="form-control" id="OgoodsName"  placeholder="货物名"/>
 							</div>
-							<label class="col-sm-2 control-label" for="OunitPrice">货物单价</label>
+							<label class="col-sm-2 control-label" for="OunitPrice">货物单价(元)</label>
 							<div class="col-sm-4">
 								<input style="width: 100%" class="form-control" id="OunitPrice" type="number" placeholder="货物单价"/>
 							</div>
 						</div>
 						<div class="form-group">
 
-							<label class="col-sm-2 control-label" for="OpercentOfPass">合格率</label>
+							<label class="col-sm-2 control-label" for="OpercentOfPass">合格率(%)</label>
 							<div class="col-sm-4">
 								<input style="width: 100%" class="form-control" id="OpercentOfPass" type="number" placeholder="合格率"/>
 							</div>
 
-							<label class="col-sm-2 control-label" for="OneedAmount">货物数量</label>
+							<label class="col-sm-2 control-label" for="OneedAmount">货物数量(个)</label>
 							<div class="col-sm-4">
 								<input style="width: 100%" class="form-control" id="OneedAmount" type="number" placeholder="货物数量"/>
 							</div>
@@ -97,7 +98,7 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-sm-2 control-label" for="OtimeLimit">到货天数</label>
+							<label class="col-sm-2 control-label" for="OtimeLimit">到货天数(天)</label>
 							<div class="col-sm-4">
 								<input style="width: 100%" class="form-control" id="OtimeLimit" type="number" placeholder="到货天数"/>
 							</div>
@@ -128,7 +129,7 @@
 
 
 
-				<input type="submit" value="发送订单" id="sendIt">
+				<input type="submit" value="发送订单" id="sendIt" style="margin-left: 40%">
 				<div class="clearfix"> </div>
 
 			</div>

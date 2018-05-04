@@ -66,7 +66,7 @@ $(function () {
                dataType: "json",
                success:function (data) {
                    var str = "";
-                   str +='<option value="">'+"--请选择--"+'</option>'
+                 //  str +='<option value="">'+"--请选择--"+'</option>'
                    for(var i = 0;i<data.data.length;i++){
                        str+='<option value='+data.data[i].id+'>'+data.data[i].cityName+'</option>'
 
@@ -87,6 +87,7 @@ $(function () {
            $("#percentOfPassEdit").val(temp[0].percentOfPass);
            $("#goodsNameEdit").val(temp[0].goodsName);
            $("#unitPriceEdit").val(temp[0].unitPrice);
+           $(".selectpickerEdit").val(temp[0].addressId);
 
            //提交
            $("#btn_submit_Edit").click(function () {
@@ -244,15 +245,22 @@ var TableInit = function () {
             showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
             detailView: false,                   //是否显示父子表
+            responseHandler: function(result) {
+                return {
+                    //总页数,前面的key必须为"total"
+                    total : result.rows,
+
+                    //行数据，前面的key要与之前设置的dataField的值一致.
+                    data : result.list
+                };
+            },
             onLoadSuccess: function(backDate) {
 
                 $('#supplierTable').bootstrapTable('removeAll');
 
-                this.data=backDate.list;
-
-                $('#supplierTable').bootstrapTable('load',backDate.list);
+                $('#supplierTable').bootstrapTable('append',backDate.data);
             },
-            data: [],
+
             columns: [{
                 checkbox: true
             }, {
@@ -268,19 +276,20 @@ var TableInit = function () {
                 visible: true
             }, {
                 field: 'unitPrice',
-                title: '单价'
+                title: '单价(元)'
             }, {
                 field: 'inventory',
-                title: '库存量'
+                title: '库存量(个)'
             }, {
                 field: 'city_name',
                 title: '地址'
             }, {
                 field: 'percentOfPass',
-                title: '原料合格率'
+                title: '原料合格率(%)'
             } ]
         });
     };
+
     //查询
     $("#btn_query").click(function (){
         console.log($("#Name").val());
