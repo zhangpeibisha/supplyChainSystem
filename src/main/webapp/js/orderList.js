@@ -43,7 +43,7 @@ $(function () {
         }
     });
 
-    //查询
+/*    //查询
     $("#btn_query").click(function (){
         $.ajax({
             type: 'get',
@@ -62,7 +62,7 @@ $(function () {
 
             }
         })
-    });
+    });*/
 
     //修改
     $("#btn_edit").click(function(){
@@ -181,11 +181,18 @@ var TableInit = function () {
             showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
             detailView: false,                   //是否显示父子表
+            responseHandler: function(result) {
+                console.log(result)
+                return {
+                    //总页数,前面的key必须为"total"
+                    total : result.total,
+                    //行数据，前面的key要与之前设置的dataField的值一致.
+                    data : result.list
+                };
+            },
             onLoadSuccess: function(data) {
                 $('#orderTable').bootstrapTable('removeAll');
-                console.log(data);
-                this.data=data.list;
-                $('#orderTable').bootstrapTable('load',data.list);
+                $('#orderTable').bootstrapTable('append',data.data);
             },
             columns: [{
                 checkbox: true
