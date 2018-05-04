@@ -209,6 +209,8 @@
 		    var timeLimit = $("#OtimeLimit").val();
 		    var percentOfPass = $("#OpercentOfPass").val();
 		    var addressId = $("#addressSelect").val();
+			var cost = $("#OunitPrice").val()*$("#OneedAmount").val();
+			console.log(cost);
 
 		    if(goodsName != null && goodsName != "" && unitPrice != null && unitPrice != "" && needAmount != null && needAmount != "" && timeLimit != null && timeLimit != ""&& percentOfPass != null && percentOfPass != "" && addressId !=null && addressId != ""){
 
@@ -223,7 +225,8 @@
                         "timeLimit": timeLimit,
                         "percentOfPass": percentOfPass,
                         "addressId": addressId,
-						"userId": userId
+						"userId": userId,
+						"cost": cost
                     },
                     dataType: 'json',
                     success: function (data) {
