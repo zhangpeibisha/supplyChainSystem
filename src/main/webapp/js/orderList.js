@@ -131,7 +131,7 @@ $(function () {
                         if (data.status == 1) {
                             alert("修改成功！");
                             $("#orderDetail").modal({show: false});
-                           /* window.location.reload();*/
+                            window.location.reload();
                         }
                         else {
                             alert("修改失败");
