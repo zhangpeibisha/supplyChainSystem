@@ -43,12 +43,11 @@
                     success: function (data) {
                         console.log(data);
                         if(data.code == "1"){
-                            storage["id"]=data.user.id;
-                            switch (data.user.roleModel.id) {
+                            storage["id"]=data.id;
+                            switch (data.role) {
                                 case 1 :window.location.href="index.html";break;
                                 case 2 :break;
                                 case 3 : window.location.href="userIndex.html";break;
-
                             }
 
                         }

@@ -9,6 +9,7 @@ import org.nix.dao.mapper.UserMapper;
 import org.nix.model.RoleModel;
 import org.nix.model.UserModel;
 import org.nix.model.city.City;
+import org.nix.service.imp.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -80,6 +81,21 @@ public class MainTest {
 
     public static void main(String[] args) {
         Map<String, String> map = getRoleEnumValueToMap();
+        System.out.println();
+    }
+
+    @Autowired
+    private UserService userService;
+
+    @Test
+    public void selectUserTest(){
+        String nickName = "4";
+        String passWord = "4";
+
+        UserModel userModel = new UserModel();
+        userModel.setNickName(nickName);
+        userModel.setPassWord(passWord);
+        UserModel model = userService.login(userModel);
         System.out.println();
     }
 }

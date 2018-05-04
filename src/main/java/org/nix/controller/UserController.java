@@ -69,7 +69,8 @@ public class UserController {
         }
         model.setPassWord(null);
         resultMap.put("code",1);
-        resultMap.put("user",model);
+        resultMap.put("id",model.getId());
+        resultMap.put("role",model.getRoleModel().getId());
         session.setAttribute(SessionHelper.SESSION_HELPER_USER.getSessionKey(),model);
         return resultMap;
     }
