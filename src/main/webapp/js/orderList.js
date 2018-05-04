@@ -80,13 +80,18 @@ $(function () {
                 dataType: "json",
                 success:function (data) {
                     var str = "";
-                    str +='<option value="">'+"--请选择--"+'</option>'
                     for(var i = 0;i<data.data.length;i++){
-                        str+='<option value='+data.data[i].id+'>'+data.data[i].cityName+'</option>'
+                        if(data.data[i].id == temp[0].addressId)
+                        {
+                            str+='<option value='+data.data[i].id+' selected>'+data.data[i].cityName+'</option>'
+                        }
+                        else{
+                            str+='<option value='+data.data[i].id+'>'+data.data[i].cityName+'</option>'
+                        }
+
                     }
                     $(".selectpickerEdit").html(str);
 
-                    //   $(".selectpickerEdit" ).selectpicker('refresh');
                 }
             });
 
@@ -111,7 +116,8 @@ $(function () {
                     type: "put",
                     url: '/api/order/update.do',
                     data: {
-                        "userId":storage["id"],
+
+                        "id":storage["id"],
                         "goodsName": goodsName.val(),
                         "unitPrice": unitPrice.val(),
                         "needAmount": needAmount.val(),
@@ -125,7 +131,7 @@ $(function () {
                         if (data.status == 1) {
                             alert("修改成功！");
                             $("#orderDetail").modal({show: false});
-                            window.location.reload();
+                           /* window.location.reload();*/
                         }
                         else {
                             alert("修改失败");
