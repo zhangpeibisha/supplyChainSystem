@@ -21,9 +21,11 @@
         count(*)
         FROM
         t_userorder AS t_o,
-        t_user AS t_u
+        t_user AS t_u,
+        t_city AS t_c
         WHERE
-        t_o.userId = t_u.id
+        t_o.userId = t_u.id AND
+        t_o.addressId = t_c.id
         <if test="nickName != null and nickName.length() > 0">
             AND  nickName like CONCAT('%', #{nickName}, '%')
         </if>

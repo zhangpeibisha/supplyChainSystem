@@ -9,7 +9,6 @@ $(function () {
     oButtonInit.Init();
 
 
-
     //删除
     $("#btn_delete").click(function (){
         var temp= $("#supplierTable").bootstrapTable('getSelections');
@@ -66,7 +65,7 @@ $(function () {
                dataType: "json",
                success:function (data) {
                    var str = "";
-                   str +='<option value="">'+"--请选择--"+'</option>'
+                 //  str +='<option value="">'+"--请选择--"+'</option>'
                    for(var i = 0;i<data.data.length;i++){
                        str+='<option value='+data.data[i].id+'>'+data.data[i].cityName+'</option>'
 
@@ -77,16 +76,13 @@ $(function () {
                }
            });
 
-
-
-           console.log(temp[0])
-
            //勾选id对应的那条数据内容注入到弹框里面
            $("#nickNameEdit").val(temp[0].nickName);
            $("#inventoryEdit").val(temp[0].inventory);
            $("#percentOfPassEdit").val(temp[0].percentOfPass);
            $("#goodsNameEdit").val(temp[0].goodsName);
            $("#unitPriceEdit").val(temp[0].unitPrice);
+           $(".selectpickerEdit").val(temp[0].addressId);
 
            //提交
            $("#btn_submit_Edit").click(function () {
@@ -232,27 +228,34 @@ var TableInit = function () {
             sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
             pageNumber:1,                       //初始化加载第一页，默认第一页
             pageSize: 10,                       //每页的记录行数（*）
-            pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+            pageList: [5, 10],        //可供选择的每页的行数（*）
             search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
             strictSearch: true,
             showColumns: true,                  //是否显示所有的列
             showRefresh: true,                  //是否显示刷新按钮
             minimumCountColumns: 2,             //最少允许的列数
             clickToSelect: true,                //是否启用点击选中行
-            height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            height: 526,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
             uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
             showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
             detailView: false,                   //是否显示父子表
+            responseHandler: function(result) {
+                return {
+                    //总页数,前面的key必须为"total"
+                    total : result.rows,
+
+                    //行数据，前面的key要与之前设置的dataField的值一致.
+                    data : result.list
+                };
+            },
             onLoadSuccess: function(backDate) {
 
                 $('#supplierTable').bootstrapTable('removeAll');
 
-                this.data=backDate.list;
-
-                $('#supplierTable').bootstrapTable('load',backDate.list);
+                $('#supplierTable').bootstrapTable('append',backDate.data);
             },
-            data: [],
+
             columns: [{
                 checkbox: true
             }, {
@@ -268,19 +271,20 @@ var TableInit = function () {
                 visible: true
             }, {
                 field: 'unitPrice',
-                title: '单价'
+                title: '单价(元)'
             }, {
                 field: 'inventory',
-                title: '库存量'
+                title: '库存量(个)'
             }, {
                 field: 'city_name',
                 title: '地址'
             }, {
                 field: 'percentOfPass',
-                title: '原料合格率'
+                title: '原料合格率(%)'
             } ]
         });
     };
+
     //查询
     $("#btn_query").click(function (){
         console.log($("#Name").val());
@@ -290,10 +294,12 @@ var TableInit = function () {
             url: "/api/materialMerchants/get.do",
             dataType: 'json',
             data: {
+                limit: 10,   //页面大小
+                curPage: 1,  //页码
                 goodsName: $("#Name").val()
             },
             success: function(data){
-
+                console.log(data);
                 $('#supplierTable').bootstrapTable('removeAll');
 
                 $('#supplierTable').bootstrapTable('append',data.list);
@@ -304,13 +310,10 @@ var TableInit = function () {
     //得到查询的参数
     oTableInit.queryParams = function (params) {
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-            /*limit: params.limit,   //页面大小
-            offset: params.offset,*/  //页码
-            goodsName: $("#Name").val(),  //名称
-           /* departmentname: $("#txt_search_departmentname").val(),
-            statu: $("#txt_search_statu").val()*/
+            limit: params.limit,   //页面大小
+            curPage: parseInt(params.offset)/parseInt(params.limit)+1,  //页码
+            goodsName: $("#Name").val()  //名称
         };
-        console.log("here:"+temp.goodsName);
         return temp;
     };
     return oTableInit;
