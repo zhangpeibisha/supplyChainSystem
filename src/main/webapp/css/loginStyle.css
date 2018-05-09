@@ -71,4 +71,51 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+.radioGroup label::before, .radioGroup label::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+}
+.radio_box{
+    display:inline-block;
+    position:relative;
+    width: 30%;
+    float: left;
+    padding-bottom: 5%;
+}
 
+.radio_box label{
+    width:13px;
+    height:13px;
+    position:absolute;
+    top:0; left:0;
+    border:1px solid orange;
+    border-radius:50%;
+    background:#fff;
+    cursor:pointer;
+    margin-top: 3%;
+}
+
+.radio_box input:checked + label:after{
+    content:'';
+    width:9px; height:9px;
+    position:absolute;
+    top:2px; left:2px;
+    background:orange;
+    border-radius:50%;
+}
+
+.admin{
+    margin:0 0 0 -1%;
+    font-family: "Microsoft YaHei","Roboto", sans-serif;
+}
+.user {
+    margin:0 0 0 -16%;
+    font-family: "Microsoft YaHei","Roboto", sans-serif;
+}
