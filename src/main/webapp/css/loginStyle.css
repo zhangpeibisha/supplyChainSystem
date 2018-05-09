@@ -114,8 +114,10 @@ body {
 .admin{
     margin:0 0 0 -1%;
     font-family: "Microsoft YaHei","Roboto", sans-serif;
+    font-size: 14px;
 }
 .user {
     margin:0 0 0 -16%;
     font-family: "Microsoft YaHei","Roboto", sans-serif;
+    font-size: 14px;
 }
