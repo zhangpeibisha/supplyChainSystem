@@ -203,7 +203,7 @@ public class OrderController {
         List<City> cities = cityService.findCityAll();
         Double min = null;
         for (MaterialMerchantsModel model:list) {
-            CityDijKstra cityDijKstra = new CityDijKstra(cityService.findCityById(1),model.getAddress(),cities);
+            CityDijKstra cityDijKstra = new CityDijKstra(cityService.findCityByName(order.getCityName()),model.getAddress(),cities);
             Double distance = cityDijKstra.getShortPath().getDistance();
             if (min == null || min > distance) {
                 best = model;

@@ -38,4 +38,9 @@ public class CityService extends BaseService<City> {
         return cityMapper.findCityById(id);
     }
 
+
+    public City findCityByName(String name){
+        return cityMapper.findCityByName(name);
+    }
+
 }
