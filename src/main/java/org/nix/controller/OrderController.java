@@ -211,6 +211,7 @@ public class OrderController {
             }
         }
         resultMap.put("best",best);
+        resultMap.put("way",min);
         resultMap.put("status", 1);
         return null;
     }
