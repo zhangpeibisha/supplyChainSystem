@@ -1,10 +1,14 @@
 package org.nix.controller;
 
+import org.nix.model.MaterialMerchantsModel;
 import org.nix.model.city.City;
 import org.nix.model.dto.LimitShowModel;
 import org.nix.model.OrderModel;
+import org.nix.service.imp.CityService;
 import org.nix.service.imp.MaterialMerchantsService;
 import org.nix.service.imp.OrderService;
+import org.nix.utils.city.CityDijKstra;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
@@ -21,6 +25,8 @@ public class OrderController {
 
     @Resource(name = "materialMerchantsService")
     private MaterialMerchantsService materialMerchantsService;
+    @Autowired
+    private CityService cityService;
 
     /**
      * 根据条件获取订单信息
@@ -177,4 +183,35 @@ public class OrderController {
         return resultMap;
     }
 
+
+    /**
+     * 选配原料厂商
+     * */
+    @PostMapping("/best")
+    public Map<String,Object> theBestVendor(@RequestParam("id") Integer id) {
+        OrderModel order = orderService.findById(id);
+        Map<String,Object> resultMap = new HashMap<>();
+        String goodName = order.getGoodsName();
+        Long number = order.getNeedAmount();
+        List<MaterialMerchantsModel> list = materialMerchantsService.list(null,null,null,null,
+                "goodName = '" + goodName + "' and inventory > " + number);
+        if (list == null || list.size() == 0) {
+            resultMap.put("object", 0);
+            return resultMap;
+        }
+        MaterialMerchantsModel best = null;
+        List<City> cities = cityService.findCityAll();
+        Double min = null;
+        for (MaterialMerchantsModel model:list) {
+            CityDijKstra cityDijKstra = new CityDijKstra(cityService.findCityById(1),model.getAddress(),cities);
+            Double distance = cityDijKstra.getShortPath().getDistance();
+            if (min == null || min > distance) {
+                best = model;
+                min = distance;
+            }
+        }
+        resultMap.put("best",best);
+        resultMap.put("status", 1);
+        return null;
+    }
 }

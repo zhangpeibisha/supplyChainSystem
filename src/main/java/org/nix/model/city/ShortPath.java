@@ -59,4 +59,14 @@ public class ShortPath extends BaseModel<City>{
     public void setDistance(Double distance) {
         this.distance = distance;
     }
+
+    @Override
+    public String toString() {
+        return "ShortPath{" +
+                "fromCity=" + fromCity +
+                ", toCity=" + toCity +
+                ", ways=" + ways +
+                ", distance=" + distance +
+                '}';
+    }
 }

@@ -33,6 +33,14 @@ public class CityDijKstra {
         init();
     }
 
+    public ShortPath getShortPath() {
+        return shortPath;
+    }
+
+    public void setShortPath(ShortPath shortPath) {
+        this.shortPath = shortPath;
+    }
+
     private void dijkstra(int citySize, int startIndex, int endIndex) {
 
         // 保存起点城市到其他城市的最短长度

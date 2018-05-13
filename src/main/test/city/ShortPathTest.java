@@ -66,6 +66,7 @@ public class ShortPathTest {
         cities.add(shanghai);
 
         CityDijKstra cityDijKstra = new CityDijKstra(chongqing,shenzheng,cities);
+        System.out.println(cityDijKstra.getShortPath());
     }
 
 }
