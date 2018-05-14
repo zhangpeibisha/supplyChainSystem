@@ -194,7 +194,7 @@ public class OrderController {
         String goodName = order.getGoodsName();
         Long number = order.getNeedAmount();
         List<MaterialMerchantsModel> list = materialMerchantsService.list(null,null,null,null,
-                "goodName = '" + goodName + "' and inventory > " + number);
+                "goodsName = '" + goodName + "' and inventory > " + number);
         if (list == null || list.size() == 0) {
             resultMap.put("object", 0);
             return resultMap;
@@ -203,8 +203,18 @@ public class OrderController {
         List<City> cities = cityService.findCityAll();
         Double min = null;
         for (MaterialMerchantsModel model:list) {
-            CityDijKstra cityDijKstra = new CityDijKstra(cityService.findCityByName(order.getCityName()),model.getAddress(),cities);
-            Double distance = cityDijKstra.getShortPath().getDistance();
+            City start = cityService.findCityByName(order.getCityName());
+            City end = model.getAddress();
+            for (City city:cities) {
+                if (city.getCityName().equals(start.getCityName())) {
+                    start = city;
+                }
+                if (city.getCityName().equals(end.getCityName())) {
+                    end = city;
+                }
+            }
+            CityDijKstra cityDijKstra = new CityDijKstra(start,end,cities);
+            Double distance = cityDijKstra.shortPath().getDistance();
             if (min == null || min > distance) {
                 best = model;
                 min = distance;

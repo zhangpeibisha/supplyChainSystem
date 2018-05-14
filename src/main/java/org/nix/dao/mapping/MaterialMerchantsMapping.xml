@@ -137,10 +137,10 @@
     </select>
 
     <!--根据条件查找数据-->
-    <select id="list" resultMap="BaseResultMap">
+    <select id="list" resultMap="CityResultMap">
         select t_materialMerchants.*,
                 t_city.id as addressId,
-                t_city.city_name
+                t_city.city_name as cityName
         from
           `t_materialMerchants`,
            t_city

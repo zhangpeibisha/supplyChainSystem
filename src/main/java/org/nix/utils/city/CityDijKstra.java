@@ -32,14 +32,10 @@ public class CityDijKstra {
         this.map = map;
         init();
     }
-
-    public ShortPath getShortPath() {
+    public ShortPath shortPath() {
         return shortPath;
     }
 
-    public void setShortPath(ShortPath shortPath) {
-        this.shortPath = shortPath;
-    }
 
     private void dijkstra(int citySize, int startIndex, int endIndex) {
 
@@ -64,7 +60,7 @@ public class CityDijKstra {
         shortPath[startIndex] = 0;
         marked[startIndex] = true;
 
-        for (int i = 1; i < citySize; i++) {
+        for (int i = 0; i < citySize; i++) {
 
             /**
              * 此部分计算起点到其他为标记点中最短路径的那个点
