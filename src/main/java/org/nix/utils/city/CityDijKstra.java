@@ -115,8 +115,8 @@ public class CityDijKstra {
         // 初始化最短路径结果中的起始城市和目的城市
         shortPath = new ShortPath(startCity, endCity);
         int citySize = map.size();
-        int startIndex = map.indexOf(startCity);
-        int endIndex = map.indexOf(endCity);
+        int startIndex = getCityIndex(map,startCity);
+        int endIndex = getCityIndex(map,endCity);
         dijkstra(citySize, startIndex, endIndex);
         display(map);
     }
@@ -160,5 +160,14 @@ public class CityDijKstra {
 
     public void setShortPath(ShortPath shortPath) {
         this.shortPath = shortPath;
+    }
+
+    private int getCityIndex(List<City> cities , City city){
+        for (int i = 0; i < cities.size(); i++) {
+            if (cities.get(i).getCityName().equals(city.getCityName())){
+                return i;
+            }
+        }
+        return -1;
     }
 }
