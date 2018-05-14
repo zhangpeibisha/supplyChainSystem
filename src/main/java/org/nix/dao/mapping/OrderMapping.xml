@@ -31,7 +31,7 @@
         </if>
 
         <if test="goodsName != null and goodsName.length() > 0">
-            AND  goodsName like CONCAT('%', #{goodsName}, '%')
+             AND  goodsName like CONCAT('%', #{goodsName}, '%')
         </if>
         <if test="unitPrice != 0">
             AND  unitPrice like CONCAT('%', #{unitPrice}, '%')

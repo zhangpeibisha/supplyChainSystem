@@ -6,6 +6,9 @@ import org.nix.dao.mapper.CityMapper;
 import org.nix.dao.mapper.UserMapper;
 import org.nix.model.UserModel;
 import org.nix.model.city.City;
+import org.nix.model.city.ShortPath;
+import org.nix.service.imp.CityService;
+import org.nix.utils.city.CityDijKstra;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -18,14 +21,14 @@ import java.util.List;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:spring-mybatis.xml"})
+@ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
 public class InsertCityTest {
 
     @Autowired
     private UserMapper userMapper;
 
     @Test
-    public void insertUserTest(){
+    public void insertUserTest() {
         UserModel userModel = new UserModel();
         userModel.setUserName("张三");
         userModel.setPhone("18203085236");
@@ -38,7 +41,7 @@ public class InsertCityTest {
     private CityMapper cityMapper;
 
     @Test
-    public void insertCityListTest(){
+    public void insertCityListTest() {
         City chongqing = new City();
         chongqing.setCityName("重庆0");
 
@@ -65,7 +68,7 @@ public class InsertCityTest {
     }
 
     @Test
-    public void insertCityDistanceListTest(){
+    public void insertCityDistanceListTest() {
         City chongqing = cityMapper.findCityById(1);
 
         City guangzhou = cityMapper.findCityById(2);
@@ -74,27 +77,27 @@ public class InsertCityTest {
 
         City huizhou = cityMapper.findCityById(4);
 
-        City shanghai =cityMapper.findCityById(5);
+        City shanghai = cityMapper.findCityById(5);
 
-        chongqing.addDistance(guangzhou,10.0)
+        chongqing.addDistance(guangzhou, 10.0)
                 .addDistance(shenzheng)
-                .addDistance(huizhou,30.0)
-                .addDistance(shanghai,100.0);
+                .addDistance(huizhou, 30.0)
+                .addDistance(shanghai, 100.0);
 
         guangzhou.addDistance(chongqing)
-                .addDistance(shenzheng,50.0)
+                .addDistance(shenzheng, 50.0)
                 .addDistance(huizhou)
                 .addDistance(shanghai);
 
         shenzheng.addDistance(guangzhou)
                 .addDistance(chongqing)
                 .addDistance(huizhou)
-                .addDistance(shanghai,10.0);
+                .addDistance(shanghai, 10.0);
 
         huizhou.addDistance(guangzhou)
-                .addDistance(shenzheng,20.0)
+                .addDistance(shenzheng, 20.0)
                 .addDistance(chongqing)
-                .addDistance(shanghai,60.0);
+                .addDistance(shanghai, 60.0);
 
         shanghai.addDistance(guangzhou)
                 .addDistance(shenzheng)
@@ -108,4 +111,16 @@ public class InsertCityTest {
         cityMapper.insertCityDistanceList(shanghai.getDistance());
     }
 
+    @Autowired
+    private CityService cityService;
+
+    @Test
+    public void shortPathTest() {
+        City city = cityMapper.findCityById(1);
+        City endCity = cityMapper.findCityById(5);
+        List<City> cities =cityService .findCityAll();
+        CityDijKstra cityDijKstra = new CityDijKstra(city, endCity, cities);
+        ShortPath shortPath = cityDijKstra.getShortPath();
+        System.out.println();
+    }
 }

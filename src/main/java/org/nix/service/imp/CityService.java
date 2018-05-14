@@ -2,6 +2,7 @@ package org.nix.service.imp;
 
 import org.nix.dao.mapper.CityMapper;
 import org.nix.model.city.City;
+import org.nix.model.city.Distance;
 import org.nix.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,13 @@ public class CityService extends BaseService<City> {
      * @return
      */
     public List<City> findCityAll() {
-        return cityMapper.findCityAll();
+
+        List<City> cities =  cityMapper.findCityAll();
+        for (City city : cities) {
+            List<Distance> distances = cityMapper.getDistancesById(city.getId());
+            city.setDistance(distances);
+        }
+        return cities;
     }
 
     /**
