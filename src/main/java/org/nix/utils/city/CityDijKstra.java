@@ -153,4 +153,12 @@ public class CityDijKstra {
 
         }
     }
+
+    public ShortPath getShortPath() {
+        return shortPath;
+    }
+
+    public void setShortPath(ShortPath shortPath) {
+        this.shortPath = shortPath;
+    }
 }

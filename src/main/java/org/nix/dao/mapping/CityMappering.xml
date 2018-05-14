@@ -2,11 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.nix.dao.mapper.CityMapper">
 
+    <!--基础值-->
     <resultMap id="BaseResultMap" type="org.nix.model.city.City">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="createTime" property="createTime" jdbcType="DATE"/>
         <result column="city_name" property="cityName" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <!--添加距离-->
+    <resultMap id="resultDistanceCompleteMap" type="org.nix.model.city.Distance">
+        <result column="distance" property="distance" jdbcType="DOUBLE"/>
+        <association property="fromCity" column="from_city" javaType="org.nix.model.city.City"
+                     select="findCityById"/>
+        <association property="toCity" column="to_city" javaType="org.nix.model.city.City"
+                     select="findCityById"/>
+    </resultMap>
+
+
+    <!--得到一个城市的邻接城市-->
+    <select id="getDistancesById" parameterType="java.lang.Integer" resultMap="resultDistanceCompleteMap">
+        SELECT * FROM t_city_distance where t_city_distance.from_city = #{id}
+    </select>
 
     <!--根据条件查找数据-->
     <select id="findCityByName" resultMap="BaseResultMap">
@@ -20,10 +36,7 @@
 
     <!--查询所有城市-->
     <select id="findCityAll" resultMap="BaseResultMap">
-        SELECT
-          *
-        FROM
-          t_city
+      SELECT * FROM t_city
     </select>
 
     <!--根据条件查找数据-->

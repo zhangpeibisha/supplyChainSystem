@@ -43,4 +43,11 @@ public interface CityMapper {
      * @param cities
      */
      void insertCityList(List<City> cities);
+
+    /**
+     * 得到邻接城市
+     * @param id 查询城市id
+     * @return
+     */
+     List<Distance> getDistancesById(int id);
 }

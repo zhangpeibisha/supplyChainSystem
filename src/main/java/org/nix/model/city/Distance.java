@@ -18,6 +18,9 @@ public class Distance extends BaseModel<City> {
     // 两个城市之间的距离  为空则为无穷大
     private double distance = Integer.MAX_VALUE-1;
 
+    public Distance() {
+    }
+
     public Distance(City fromCity, City toCity) {
         this.fromCity = fromCity;
         this.toCity = toCity;
@@ -50,6 +53,10 @@ public class Distance extends BaseModel<City> {
     }
 
     public void setDistance(Double distance) {
+        this.distance = distance;
+    }
+
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 }
