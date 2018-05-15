@@ -75,7 +75,8 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="OgoodsName" style="text-align:left;">货物名称</label>
 							<div class="col-sm-4">
-								<input style="width: 100% ;margin-left: -25%" class="form-control" id="OgoodsName"  placeholder="货物名称"/>
+								<select style="width: 100% ;margin-left: -25%" class="form-control" id="OgoodsName"  placeholder="货物名称"/>
+								</select>
 							</div>
 							<label class="col-sm-2 control-label" for="OunitPrice" style="text-align:left;">货物单价(元)</label>
 							<div class="col-sm-4">
@@ -156,7 +157,25 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 
-
+			$.ajax({
+				type: 'get',
+				url: "/api/materialMerchants/get.do",
+				dataType: 'json',
+				data: {
+					limit: 20,
+					curPage: 1
+				},
+				success: function (data) {
+				    console.log("goodsName")
+					console.log(data.list);
+				    var str = "";
+				    str += '<option value="">'+"--请选择--"+'</option>'
+					for(var i = 0 ;i<data.list.length;i++){
+				        str+='<option value='+data.list[i].goodsName+'>'+data.list[i].goodsName+'</option>'
+					}
+					$("#OgoodsName").html(str);
+                }
+			});
 
 
             $.ajax({

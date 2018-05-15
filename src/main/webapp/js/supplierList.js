@@ -250,7 +250,7 @@ var TableInit = function () {
                 };
             },
             onLoadSuccess: function(backDate) {
-
+                console.log(backDate.data);
                 $('#supplierTable').bootstrapTable('removeAll');
 
                 $('#supplierTable').bootstrapTable('append',backDate.data);
@@ -276,7 +276,7 @@ var TableInit = function () {
                 field: 'inventory',
                 title: '库存量(个)'
             }, {
-                field: 'city_name',
+                field: 'address.cityName',
                 title: '地址'
             }, {
                 field: 'percentOfPass',
