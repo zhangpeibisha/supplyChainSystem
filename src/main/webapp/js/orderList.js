@@ -157,8 +157,6 @@ var TableInit = function () {
     var oTableInit = new Object();
     //初始化Table
     oTableInit.Init = function () {
-        console.log("加载");
-
         $('#orderTable').bootstrapTable({
             url: '/api/order/get.do',         //请求后台的URL（*）
             method: 'get',                      //请求方式（*）
@@ -232,7 +230,7 @@ var TableInit = function () {
                 align: 'center',
                 formatter:function(value,row,index){
                     var element =
-                        "<a class='edit' data-id='"+row.id +"'>选配</a> ";
+                        "<a class='edit' href='../html/bestSupplier.html?id="+row.id +"'>选配</a> ";
                     return element;
                 }
             }
