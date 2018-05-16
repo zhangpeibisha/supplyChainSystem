@@ -93,7 +93,16 @@ public class UserController {
     public Map<String,Object> userMsg(@PathVariable("id") Integer id) {
         Map<String,Object> resultMap = new HashMap<>();
         try {
-            resultMap.put("user",userService.findById(id));
+            UserModel userModel = userService.findById(id);
+            UserModel userModel1 = new UserModel();
+
+            userModel1.setNickName(userModel.getNickName());
+            userModel1.setPhone(userModel.getPhone());
+            userModel1.setUserName(userModel.getUserName());
+            userModel1.setId(userModel.getId());
+
+
+            resultMap.put("user",userModel1);
             resultMap.put("code",1);
         } catch (Exception e) {
             resultMap.put("code",0);
